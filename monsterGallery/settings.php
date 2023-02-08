@@ -38,6 +38,11 @@ style="padding:0.5rem 1rem;background: #000;color:#fff;text-decoration: none;"
 style="padding:0.5rem 1rem;background: #000;color:#fff;text-decoration: none;background: red;"
 	>CLEAR THUMBNAILS CACHE</a>
 
+	<a href="<?php global $SITEURL;echo $SITEURL;?>admin/load.php?id=monsterGallery&migrateGallery"
+style="padding:0.5rem 1rem;background: #000;color:#fff;text-decoration: none;"
+	>MIGRATE GALLERIES</a>
+
+
 	<a href="<?php global $SITEURL;echo $SITEURL;?>admin/load.php?id=monsterGallery&credits"
 style="padding:0.5rem 1rem;background: #000;color:#fff;text-decoration: none;"
 	>CREDITS</a>

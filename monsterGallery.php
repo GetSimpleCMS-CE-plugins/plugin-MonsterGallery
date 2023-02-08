@@ -7,7 +7,7 @@ $thisfile=basename(__FILE__, ".php");
 register_plugin(
 	$thisfile, //Plugin id
 	'MonsterGallery', 	//Plugin name
-	'1.0.1', 		//Plugin version
+	'2.0', 		//Plugin version
 	'Multicolor',  //Plugin author
 	'https://github.com/multicolor-rgb', //author website
 	'Gallery plugin you want use it!', //Plugin description
@@ -37,6 +37,11 @@ if(isset($_GET['monsterGalleryList'])){
 if(isset($_GET['addMonsterGallery'])){
  include(GSPLUGINPATH.'monsterGallery/addNewMonsterGallery.php');
 }
+
+
+if(isset($_GET['migrateGallery'])){
+	include(GSPLUGINPATH.'monsterGallery/migrateGallery.php');
+   }
 
 
 if(isset($_GET['delete'])){

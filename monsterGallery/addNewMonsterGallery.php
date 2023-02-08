@@ -161,6 +161,13 @@ placeholder="800" value="<?php echo @$quality?>" pattern="[0-9]+">
 
 <br>
 
+<script>
+	function closeThis(e){
+	e.preventDefault();
+ document.querySelector('.saveMG').style.display="block";
+ };
+</script>
+
 <div class="imagelist" style=" padding:10px;margin:10px 0;">
 
 <?php 
@@ -185,7 +192,7 @@ foreach($fileditJson->images as $key=>$value){
 
 
 echo '<span class="monsterspan"> 
-<button class="closeThis">X</button>
+<button class="closeThis" onClick="event.preventDefault();this.parentElement.remove()">X</button>
 <img src="'.$value.'">
 <input type="text" name="name[]" value="'.@$fileditJson->names[$key].'" placeholder="title">
 <textarea  name="description[]" value="description" placeholder="description" style="width:100%;height:60px;box-sizing:border-box;padding:5px;">
@@ -302,22 +309,14 @@ e.preventDefault();
 window.open('<?php global $SITEURL; echo $SITEURL;?>plugins/monsterGallery/filebrowser/imagebrowser.php?type=images&CKEditor=post-content',800,600);
 });
 
-
-document.querySelectorAll('.closeThis').forEach((x,i)=>{
-
-x.addEventListener('click',(c)=>{
-	c.preventDefault();
-x.parentElement.remove();
-document.querySelector('.saveMG').style.display="block";
-});
-
-
-});
-
+ 
 
   $( function() {
     $( ".imagelist" ).sortable();
   } );
+
+  
+
 
 </script>
 
