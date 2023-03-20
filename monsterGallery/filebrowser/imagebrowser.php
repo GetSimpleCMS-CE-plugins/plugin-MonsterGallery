@@ -2,7 +2,7 @@
 
 
 
-  
+
 include('../../../gsconfig.php');
 $admin = defined('GSADMIN') ? GSADMIN : 'admin';
 include("../../../${admin}/inc/common.php");
@@ -61,7 +61,7 @@ while ($file = readdir($dir_handle)) {
     $dircount++;
   } else {
     $ext = @strtolower(substr($file, strrpos($file, '.') + 1));
-    if ($ext == 'jpg' || $ext == 'jpeg' || $ext == 'gif' || $ext == 'png') {
+    if ($ext == 'jpg' || $ext == 'jpeg' || $ext == 'gif' || $ext == 'png' || $ext == 'webp') {
       $ss = @stat($path . $file);
       list($width, $height) = getimagesize($path . $file);
       $filesArray[] = ['name' => $file, 'date' => @date('M j, Y', $ss['ctime']), 'size' => fSize($ss['size']), 'bytes' => $ss['size'], 'width' => $width, 'height' => $height, 'title' => @$info['title'], 'tags' => @$info['tags'], 'description' => @$info['description'], 'debug' => @$info['debug']];
@@ -141,7 +141,7 @@ $urlPath = "";
                 <tr class="All images">
                   <td>
                     <a href="javascript:void(0)" title="<?php i18n('SELECT_FILE') . ': ' . htmlspecialchars(@$upload['name']); ?>" onclick="<?php echo $onclick; ?>">
-                      <img style="width:60px;height:60px;object-fit: cover" src="<?php echo $SITEURL.'data/uploads/'.$subPath . $upload['name']; ?>" />
+                      <img style="width:60px;height:60px;object-fit: cover" src="<?php echo $SITEURL . 'data/uploads/' . $subPath . $upload['name']; ?>" />
                     </a>
                   </td>
                   <td>
@@ -169,7 +169,7 @@ $urlPath = "";
           </tbody>
         </table>
 
-<button class="addall" style="background: #000;color:#fff;padding:0.5rem 1rem;border: none;">Add all photos</button>
+        <button class="addall" style="background: #000;color:#fff;padding:0.5rem 1rem;border: none;">Add all photos</button>
 
         <p><em><b><?php echo count((array)$filesSorted); ?></b> <?php i18n('TOTAL_FILES'); ?> (<?php echo fSize($totalsize); ?>)</em></p>
         <p style="display:none"><a href="javascript:void(0)" onclick="submitAllLinks()"><?php i18n('i18n_gallery/ADD_ALL_IMAGES'); ?></a></p>
@@ -185,14 +185,14 @@ $urlPath = "";
 
         <script>
           function submitLink(e) {
-        let linker = document.querySelectorAll('.images img')[e].getAttribute('src');
-console.log(linker);
-let linkerNew = linker;
+            let linker = document.querySelectorAll('.images img')[e].getAttribute('src');
+            console.log(linker);
+            let linkerNew = linker;
 
 
-window.opener.document.querySelector('.imagelist').insertAdjacentHTML('afterbegin',`
+            window.opener.document.querySelector('.imagelist').insertAdjacentHTML('afterbegin', `
 <span class="monsterspan"> 
-<button class="closeThis" onclick="onClick="event.preventDefault();this.parentElement.remove()">X</button>
+<button class="closeThis" onclick="event.preventDefault();this.parentElement.remove()">X</button>
 <img src="${linkerNew}">
 <input type="text" name="name[]" placeholder="title">
 <textarea  name="description[]" value="description" placeholder="description" style="width:100%;height:60px;box-sizing:border-box;padding:5px;">
@@ -203,20 +203,20 @@ window.opener.document.querySelector('.imagelist').insertAdjacentHTML('afterbegi
 
   `);
 
-         window.close();
+            window.close();
           }
 
 
-          document.querySelector('.addall').addEventListener('click',()=>{
+          document.querySelector('.addall').addEventListener('click', () => {
 
-document.querySelectorAll('.images img').forEach(x=>{
-  let linker = x.getAttribute('src');
-console.log(linker);
-  let linkerNew = linker;
+            document.querySelectorAll('.images img').forEach(x => {
+              let linker = x.getAttribute('src');
+              console.log(linker);
+              let linkerNew = linker;
 
-window.opener.document.querySelector('.imagelist').insertAdjacentHTML('afterbegin',`
+              window.opener.document.querySelector('.imagelist').insertAdjacentHTML('afterbegin', `
 <span class="monsterspan"> 
-<button class="closeThis" onclick="onClick="event.preventDefault();this.parentElement.remove()">X</button>
+<button class="closeThis" onclick="event.preventDefault();this.parentElement.remove()">X</button>
 <img src="${linkerNew}">
 <input type="text" name="name[]" placeholder="title">
 <textarea  name="description[]" value="description" placeholder="description" style="width:100%;height:60px;box-sizing:border-box;padding:5px;">
@@ -226,10 +226,10 @@ window.opener.document.querySelector('.imagelist').insertAdjacentHTML('afterbegi
 
 
   `);
-});
+            });
 
 
-         window.close();
+            window.close();
 
           });
         </script>

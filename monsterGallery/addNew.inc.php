@@ -51,16 +51,57 @@ background: #ddd;
 color:#fff;
 border:none;
 }
+
+
+<!-- HTML !-->
+<button class="button-31" role="button">Button 31</button>
+
+/* CSS */
+.button-31 {
+  background-color: #222;
+  border-radius: 4px;
+  border-style: none;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: "Farfetch Basis","Helvetica Neue",Arial,sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.5;
+  margin: 0;
+  max-width: none;
+  min-height: 44px;
+  min-width: 10px;
+  outline: none;
+  overflow: hidden;
+  padding: 9px 20px 8px;
+  position: relative;
+  text-align: center;
+  text-transform: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: 100%;
+}
+
+.button-31:hover,
+.button-31:focus {
+  opacity: .75;
+}
 </style>
 
-<h3>MonsterGallery edit</h3>
+
+
+
+<h3>MonsterGallery Edit</h3>
 <form class="mgForm" 
  method="POST">
 	<input 
 	type="text" 
 	name="MGtitle"
 	style="width:100%;padding:10px;box-sizing: border-box;"
-	placeholder="title"
+	placeholder="Title"
 
 required
 
@@ -70,7 +111,7 @@ value="<?php echo str_replace('--',' ',$_GET['edit']);?>"
 	>
 
 
-		<input 
+ <input 
 	type="hidden" 
 	name="check"
 	style="width:100%;padding:10px;box-sizing: border-box;"
@@ -107,7 +148,7 @@ $mods = $dataJson->modules;
 
 
 <div style="grid-column: 1/6;border:solid 1px #333;padding: 10px;background: #222;">
-	<p style="color:#fff; font-size:1rem;margin:0;padding:0;margin-bottom: 10px;">Gallery type</p>
+	<p style="color:#fff; font-size:1rem;margin:0;padding:0;margin-bottom: 10px;">Gallery Type</p>
 <select name="modules" class="modules" style="width:100%;margin-bottom: 10px;box-sizing: border-box;padding: 6px;font-size:13px;">
 <option value="glightbox">Glightbox</option>
 <option value="spotlight">Spotlight</option>
@@ -129,26 +170,26 @@ document.querySelector('.modules').value = '<?php echo $mods;?>';
 
 </div>
 <div style="grid-column:1/2">
-<p style="margin:0;padding:0;">quality width in px </p>
+<p style="margin:0;padding:0;">Thumbnail width (in px) </p>
 <input type="" name="quality" style="width:100%;padding:5px;box-sizing: border-box;font-size:12px" required  
 placeholder="800" value="<?php echo @$quality?>" pattern="[0-9]+">
 </div>
 
 <div style="grid-column:2/3">
-<p style="margin:0;padding:0;">Width thumbnails in px</p>
+<p style="margin:0;padding:0;">Thumb Display Width</p>
 <input type="" name="width" pattern="[0-9]+" style="width:100%;padding:5px;box-sizing: border-box;font-size:12px;" required  placeholder="320" value="<?php echo @$width?>">
 </div>
 
 
 <div style="grid-column: 3/4;">
-<p style="margin: 0;padding:0;">height thumbnails in px</p>
+<p style="margin: 0;padding:0;">Thumb Display Height</p>
 <input type="" name="height" pattern="[0-9]+" style="width:100%;padding:5px;box-sizing: border-box;font-size:12px;" required  placeholder="240" value="<?php echo @$height ;?>">
 
 </div>
 
 <div style="grid-column: 4/6;">
 
-<p style="margin: 0;padding:0;">gap thumbnails in px</p>
+<p style="margin: 0;padding:0;">Thumbs margin</p>
 <input type="" name="gap" pattern="[0-9]+" style="width:100%;padding:5px;box-sizing: border-box;font-size:12px;" placeholder="10" required value="<?php echo @$gap ;?>">
 </div>
 
@@ -172,8 +213,6 @@ placeholder="800" value="<?php echo @$quality?>" pattern="[0-9]+">
 
 <?php 
 
-
-
 if(isset($_GET['edit'])){
 
 $ed = str_replace(' ','--',$_GET['edit']);
@@ -183,9 +222,6 @@ if(file_exists($fils)){
 
 $filedit=file_get_contents($fils);
 $fileditJson = json_decode($filedit);
-
-
-
 
 
 foreach($fileditJson->images as $key=>$value){
@@ -215,7 +251,7 @@ echo '<span class="monsterspan">
 
 </div>
 
-<input type="submit" name="saveMG" class="saveMG" value="save gallery" style="background: #000;color:#fff;padding:0.5rem 1rem;border:none">
+<input type="submit" name="saveMG" class="saveMG" value="Save Gallery" style="background: #000;color:#fff;padding:0.5rem 1rem;border:none">
 
 
 

@@ -9,6 +9,7 @@
 	box-sizing: border-box;
 	margin: 2px 0;
 	align-items: center;
+	border-radius: 5px;
 }
 
 .galitem a{
@@ -28,11 +29,11 @@
 }
 </style>
 
-<h3>MonsterGallery list</h3>
+<h3>MonsterGallery List</h3>
 
 <a href="<?php global $SITEURL;echo $SITEURL;?>admin/load.php?id=monsterGallery&addMonsterGallery"
 style="padding:0.5rem 1rem;background: #000;color:#fff;text-decoration: none;"
-	>ADD</a>
+	>ADD NEW GALLERY</a>
 
 	<a href="<?php global $SITEURL;echo $SITEURL;?>admin/load.php?id=monsterGallery&monsterGalleryList&clearCache"
 style="padding:0.5rem 1rem;background: #000;color:#fff;text-decoration: none;background: red;"
@@ -53,9 +54,9 @@ style="padding:0.5rem 1rem;background: #000;color:#fff;text-decoration: none;"
 <ul style="margin:0;padding: 0;display: block;margin-top: 30px;">
 
 <li class="galitem" style="font-weight: bold;">
-<p>name</p>
-<p>shortcode for ckeditor</p>
-<p>edit or delete</p>
+<p>Name</p>
+<p>Shortcode for CKEditor</p>
+<p>Edit or Delete</p>
 </li>
 
 <?php 
@@ -92,8 +93,8 @@ Delete
 </ul>
 
 
-<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" style="box-sizing:border-box;display:grid; width:100%;grid-template-columns:1fr auto; padding:10px;background:#fafafa;border:solid 1px #ddd;margin-top:20px;">
-			<p style="margin:0;padding:0;"> If you like use my plugin! Buy me ☕ </p>
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" style="box-sizing:border-box;display:grid; width:100%;grid-template-columns:1fr auto; border-radius:5px;padding:10px;background:#fafafa;border:solid 1px #ddd;margin-top:20px;">
+			<p style="margin:0;padding:0;"> Do you like using my plugin? Buy me a ☕ </p>
 			<input type="hidden" name="cmd" value="_s-xclick">
 			<input type="hidden" name="hosted_button_id" value="KFZ9MCBUKB7GL">
 			<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" border="0">
@@ -103,8 +104,7 @@ Delete
 <?php 
 
 if(isset($_GET['clearCache'])){
-
- function mbCleanThumb(){
+ 
 
 	$imager = glob(GSPLUGINPATH.'monsterGallery/thumb/*', GLOB_BRACE);
 
@@ -113,10 +113,6 @@ if(isset($_GET['clearCache'])){
 		unlink($img);
 
 	};
-
- };
-
-mbCleanThumb();
 
  };
 
