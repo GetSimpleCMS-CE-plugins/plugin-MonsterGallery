@@ -25,6 +25,18 @@ class MonsterModules
 		$this->modules = $this->dataJson->modules;
 	}
 
+	public function set_name_frontend($matches)
+	{
+		$this->name = $matches;
+		$this->data = file_get_contents(GSDATAOTHERPATH . 'monsterGallery/' . $this->name . '.json');
+		$this->dataJson = json_decode($this->data, false);
+		$this->width = $this->dataJson->width;
+		$this->height = $this->dataJson->height;
+		$this->gap = $this->dataJson->gap;
+		$this->quality = $this->dataJson->quality;
+		$this->modules = $this->dataJson->modules;
+	}
+
 	function getNameModules()
 	{
 		return $this->modules;
