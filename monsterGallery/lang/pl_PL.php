@@ -34,8 +34,8 @@ $i18n = array (
 	"LANG_Gallery_Title"	=>	"Tytuł Galerii",
 	"LANG_Gallery_Type"		=>	"Typ Galerii",
 	"LANG_Thumb_Width"		=>	"Szerokość miniatury (w px)",
-	"LANG_Thumb_Display_Width"	=>	"Wyświetlana Szerokość Miniatury",
-	"LANG_Thumb_Height"		=>	"Wyświetlana Wysokość Miniatury",
+	"LANG_Thumb_Display_Width"	=>	"Wyś. Szerokość Miniatury",
+	"LANG_Thumb_Height"		=>	"Wyś. Wysokość Miniatury",
 	"LANG_Thumb_Margin"		=>	"Margines miniatury",
 	"LANG_Add_Image"		=>	"Dodaj zdjęcie",
 	
