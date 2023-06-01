@@ -63,7 +63,7 @@
 				</p>
 				<div style="display:flex;gap:10px;">
 					<a href="' . $SITEURL . 'admin/load.php?id=monsterGallery&addMonsterGallery&edit=' . $name . '">' . i18n_r('monsterGallery/LANG_Edit') . '</a>
-					<a   onclick="return confirm(`'. i18n_r('monsterGallery/LANG_Delete_Question') .'`);" style="background:red;" href="' . $SITEURL . 'admin/load.php?id=monsterGallery&addMonsterGallery&delete=' . $name . '">' . i18n_r('monsterGallery/LANG_Delete') . '</a>
+					<a   onclick="return confirm(`' . i18n_r('monsterGallery/LANG_Delete_Question') . '`);" style="background:red;" href="' . $SITEURL . 'admin/load.php?id=monsterGallery&addMonsterGallery&delete=' . $name . '">' . i18n_r('monsterGallery/LANG_Delete') . '</a>
 				</div>
 			</li>
 			';
@@ -81,9 +81,16 @@
 
 <?php
 if (isset($_GET['clearCache'])) {
-	$imager = glob(GSPLUGINPATH . 'monsterGallery/thumb/*', GLOB_BRACE);
+	$imager = glob(GSDATAOTHERPATH . 'monsterGallery/thumb/*.*', GLOB_BRACE);
+
+
 
 	foreach ($imager as $img) {
 		unlink($img);
+	};
+
+	if (file_exists(GSPLUGINPATH . 'monsterGallery/thumb/')) {
+		unlink(GSPLUGINPATH . 'monsterGallery/thumb/.htaccess');
+		rmdir(GSPLUGINPATH . 'monsterGallery/thumb/');
 	};
 };; ?>

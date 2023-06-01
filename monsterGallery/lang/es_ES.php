@@ -47,5 +47,13 @@ $i18n = array (
 
 	"LANG_Delete_Question" => '¿Está seguro de que desea eliminar este elemento?'
 
+		//new for 3.0
+
+		"LANG_Mobile_Width" => 'Ancho para Móvil',
+		"LANG_Mobile_Height" => 'Altura para Móvil',
+	   "LANG_Mobile_Gap" => 'Brecha para Móvil',
+		"LANG_Own_Class" => 'Clase personalizada',
+		"LANG_Thumbnail_Fit" => 'Ajuste de Miniatura',
+		"LANG_Back_To_List" =>'Volver al Listado'
 	
 );

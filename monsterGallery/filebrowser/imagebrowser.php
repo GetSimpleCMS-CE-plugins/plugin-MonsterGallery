@@ -60,7 +60,7 @@
 			$ext = @strtolower(substr($file, strrpos($file, '.') + 1));
 				if ($ext == 'jpg' || $ext == 'jpeg' || $ext == 'gif' || $ext == 'png' || $ext == 'webp') {
 				$ss = @stat($path . $file);
-				list($width, $height) = getimagesize($path . $file);
+				list($width, $height) = @getimagesize($path . $file);
 				$filesArray[] = ['name' => $file, 'date' => @date('M j, Y', $ss['ctime']), 'size' => fSize($ss['size']), 'bytes' => $ss['size'], 'width' => $width, 'height' => $height, 'title' => @$info['title'], 'tags' => @$info['tags'], 'description' => @$info['description'], 'debug' => @$info['debug']];
 				$totalsize = $totalsize + $ss['size'];
 				$count++;
@@ -110,7 +110,7 @@
 				?>
 				</div>
 		
-				<button class="addall" style="background: #000;color:#fff;padding:0.5rem 1rem;border: none;"><?php echo i18n_r('monsterGallery/LANG_Add_All_Images') ;?></button>
+				
 		
 				<table class="highlight" id="imageTable">
 				  <tbody>

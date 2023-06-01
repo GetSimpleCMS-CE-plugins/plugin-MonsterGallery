@@ -10,7 +10,7 @@ i18n_merge('monsterGallery') || i18n_merge('monsterGallery', 'en_US');
 register_plugin(
 	$thisfile, //Plugin id
 	'MonsterGallery', 	//Plugin name
-	'2.2', 		//Plugin version
+	'3.0', 		//Plugin version
 	'Multicolor',  //Plugin author
 	'https://github.com/multicolor-rgb', //author website
 	i18n_r('monsterGallery/LANG_Description'), //Plugin description
@@ -148,32 +148,27 @@ function monsterGalleryShow($matches)
 
 	//load modules
 	if ($modulesClass->getNameModules() == 'glightbox') {
-		echo '<link rel="stylesheet" href="' . $SITEURL . 'plugins/monsterGallery/modules/glightbox/glightbox.min.css">';
 		$modulesClass->glightbox();
 		echo $modulesClass->gal;
 	};
 
 	if ($modulesClass->getNameModules()  == 'PhotoSwipe') {
-		echo '<link rel="stylesheet" href="' . $SITEURL . 'plugins/monsterGallery/modules/photoswipe/photoswipe.css">';
 		$modulesClass->photoswipe();
 		echo  $modulesClass->gal;
 	};
 
 	if ($modulesClass->getNameModules() == 'spotlight') {
-		echo '<script src="' . $SITEURL . 'plugins/monsterGallery/modules/spotlight/spotlight.bundle.js"></script>';
 		$modulesClass->spotlight();
 		echo  $modulesClass->gal;
 	};
 
 	if ($modulesClass->getNameModules() == 'simplelightbox') {
-		echo '<link rel="stylesheet" href="' . $SITEURL . 'plugins/monsterGallery/modules/simplelightbox/simple-lightbox.min.css">';
 		$modulesClass->simplelightbox();
 		echo  $modulesClass->gal;
 	};
 
 	if ($modulesClass->getNameModules() == 'baguettebox') {
-		echo '<link rel="stylesheet" href="' . $SITEURL . 'plugins/monsterGallery/modules/
-		baguettebox/baguetteBox.min.css">';
+
 		$modulesClass->baguettebox();
 		echo $modulesClass->gal;
 	};
