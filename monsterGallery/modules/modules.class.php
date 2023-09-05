@@ -14,6 +14,14 @@ class MonsterModules
 	public $gal;
 	public $ownclass;
 
+	public $styleCSS;
+	public $mobilegap;
+	public $mobileheight;
+	public $mobilewidth;
+	public $thumbfit;
+	public $descunder;
+	public $modcheck;
+
 	public function set_name($matches)
 	{
 		$this->name = $matches[1];
@@ -73,6 +81,7 @@ class MonsterModules
 
 	public function set_name_frontend($matches)
 	{
+		global $modules;
 		$this->name = $matches;
 		$this->data = file_get_contents(GSDATAOTHERPATH . 'monsterGallery/' . $this->name . '.json');
 		$this->dataJson = json_decode($this->data, false);
@@ -83,7 +92,7 @@ class MonsterModules
 		$this->modules = $this->dataJson->modules;
 		$this->ownclass = $this->dataJson->ownclass;
 		$this->thumbfit = $this->dataJson->thumbfit;
-		$this->descunder = $this->dataJson->descunder;
+		$this->descunder = $this->dataJson->descunder ?? '';
 		$this->mobilewidth = $this->dataJson->mobilewidth;
 		$this->mobileheight = $this->dataJson->mobileheight;
 		$this->mobilegap = $this->dataJson->mobilegap;
@@ -218,6 +227,7 @@ class MonsterModules
 	function glightbox()
 	{
 
+		global $modules;
 		$this->gal = $this->styleCSS;
 
 
@@ -235,7 +245,7 @@ class MonsterModules
 			) . '" style="width:100%;height:100%;object-fit:' . $this->thumbfit . ';"></a>';
 		}
 		$this->gal .= '</div>';
-		global $modules;
+
 		$modules = 'glightbox';
 	}
 	//end glightbox
@@ -258,6 +268,7 @@ alt="' . $this->dataJson->names[$key] . ' ' . $this->dataJson->descriptions[$key
 ></a>';
 		}
 		$this->gal .= '</div>';
+
 		global $modules;
 		$modules = 'PhotoSwipe';
 	}
@@ -330,9 +341,14 @@ alt="' . $this->dataJson->names[$key] . ' ' . $this->dataJson->descriptions[$key
 		$this->gal .= '</div>';
 
 		global $modules;
-
 		$modules = 'baguettebox';
 	}
 
 	//end baguettebox
+
+	public function modulesCheck()
+	{
+
+		echo $this->modcheck;
+	}
 };

@@ -45,7 +45,7 @@ $i18n = array (
 	
 	"LANG_PayPal"			=>	"¿Te gusta usar mi plugin? Cómprame un ☕",
 
-	"LANG_Delete_Question" => '¿Está seguro de que desea eliminar este elemento?'
+	"LANG_Delete_Question" => '¿Está seguro de que desea eliminar este elemento?',
 
 		//new for 3.0
 

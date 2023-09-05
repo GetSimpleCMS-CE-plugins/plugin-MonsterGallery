@@ -10,7 +10,7 @@ i18n_merge('monsterGallery') || i18n_merge('monsterGallery', 'en_US');
 register_plugin(
 	$thisfile, //Plugin id
 	'MonsterGallery', 	//Plugin name
-	'3.0', 		//Plugin version
+	'3.1', 		//Plugin version
 	'Multicolor',  //Plugin author
 	'https://github.com/multicolor-rgb', //author website
 	i18n_r('monsterGallery/LANG_Description'), //Plugin description
@@ -18,10 +18,17 @@ register_plugin(
 	'monsterGallery'  //main function (administration)
 );
 
+require(GSPLUGINPATH . 'monsterGallery/modules/modules.class.php');
 # add a link in the admin tab 'theme'
 add_action('pages-sidebar', 'createSideMenu', array($thisfile, i18n_r('monsterGallery/LANG_Settings'), 'monsterGalleryList'));
 
 add_action('theme-header', 'makeMagic');
+
+global $modules;
+
+
+echo $modules;
+
 
 function monsterGallery()
 {
@@ -54,13 +61,15 @@ function monsterGallery()
 	};
 };
 
-require(GSPLUGINPATH . 'monsterGallery/modules/modules.class.php');
+
 
 function makeMagic()
 {
+	global $modules;
 
 	function mgShow($matches)
 	{
+
 		//get class Monster Modules;
 		$modulesClass = new MonsterModules();
 		$modulesClass->set_name($matches);
@@ -105,10 +114,12 @@ function makeMagic()
 /// style loader
 add_action('theme-header', 'styleloader');
 
+
 function styleloader()
 {
 	global $SITEURL;
 	global $modules;
+
 
 	if (isset($modules)) {
 
@@ -142,12 +153,16 @@ function styleloader()
 function monsterGalleryShow($matches)
 {
 	//get class Monster Modules;
+
 	$modulesClass = new MonsterModules();
 	$modulesClass->set_name_frontend($matches);
 	global $SITEURL;
+	global $modules;
+
 
 	//load modules
 	if ($modulesClass->getNameModules() == 'glightbox') {
+		 
 		$modulesClass->glightbox();
 		echo $modulesClass->gal;
 	};
@@ -172,6 +187,36 @@ function monsterGalleryShow($matches)
 		$modulesClass->baguettebox();
 		echo $modulesClass->gal;
 	};
+	
+
+	// style
+
+
+	if (isset($modules)) {
+
+		if ($modules == 'glightbox') {
+			echo '<link rel="stylesheet" href="' . $SITEURL . 'plugins/monsterGallery/modules/glightbox/glightbox.min.css">';
+		};
+
+		if ($modules == 'PhotoSwipe') {
+			echo '<link rel="stylesheet" href="' . $SITEURL . 'plugins/monsterGallery/modules/photoswipe/photoswipe.css">';
+		};
+
+		if ($modules == 'spotlight') {
+			echo '<script src="' . $SITEURL . 'plugins/monsterGallery/modules/spotlight/spotlight.bundle.js"></script>';
+		};
+
+		if ($modules == 'simplelightbox') {
+			echo '<link rel="stylesheet" href="' . $SITEURL . 'plugins/monsterGallery/modules/simplelightbox/simple-lightbox.min.css">';
+		};
+
+		if ($modules == 'baguettebox') {
+			echo '<link rel="stylesheet" href="' . $SITEURL . 'plugins/monsterGallery/modules/
+	baguettebox/baguetteBox.min.css">';
+		};
+	};
+
+
 };
 
 
@@ -185,8 +230,8 @@ add_action('theme-footer', 'scriptloader');
 
 function scriptloader()
 {
-	global $SITEURL;
 	global $modules;
+	global $SITEURL;
 
 	if (isset($modules)) {
 		if ($modules == 'glightbox') {
