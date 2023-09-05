@@ -1,7 +1,7 @@
 <?php
 	include('../../../gsconfig.php');
 	$admin = defined('GSADMIN') ? GSADMIN : 'admin';
-	include("../../../${admin}/inc/common.php");
+	include("../../../".$admin."/inc/common.php");
 	$loggedin = cookie_check();
 	if (!$loggedin) die("Not logged in!");
 	if (!defined('IN_GS')) {
