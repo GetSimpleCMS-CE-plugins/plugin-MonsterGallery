@@ -188,8 +188,7 @@ echo '<span class="monsterspan">
 <button class="closeThis">X</button>
 <img src="'.$value.'">
 <input type="text" name="name[]" value="'.@$fileditJson->names[$key].'" placeholder="title">
-<textarea  name="description[]" value="description" placeholder="description" style="width:100%;height:60px;box-sizing:border-box;padding:5px;">'.@$fileditJson->descriptions[$key].'
-</textarea>
+<textarea  name="description[]" value="description" placeholder="description" style="width:100%;height:60px;box-sizing:border-box;padding:5px;">'.@$fileditJson->descriptions[$key].'</textarea>
 
 <input type="text" name="image[]" value = "'.@$value.'" >
  </span>';
