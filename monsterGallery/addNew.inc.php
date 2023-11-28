@@ -197,8 +197,7 @@ global $SITEURL;; ?>
 							<button class="closeThis" onClick="event.preventDefault();this.parentElement.remove()" style=" cursor:pointer;">X</button>
 							<img src="' . $value . '">
 							<input type="text" name="name[]" value="' . @$fileditJson->names[$key] . '" placeholder="' . i18n_r('monsterGallery/LANG_Image_Title') . '">
-							<textarea  name="description[]" value="description" placeholder="' . i18n_r('monsterGallery/LANG_Image_Description') . '" style="width:100%; height:60px; box-sizing:border-box; padding:5px;">' . @$fileditJson->descriptions[$key] . '
-							</textarea>
+							<textarea  name="description[]" value="description" placeholder="' . i18n_r('monsterGallery/LANG_Image_Description') . '" style="width:100%; height:60px; box-sizing:border-box; padding:5px;">' . @$fileditJson->descriptions[$key] . '</textarea>
 							<input type="text" name="image[]" value = "' . @$value . '" >
 						</span>';
 				};
