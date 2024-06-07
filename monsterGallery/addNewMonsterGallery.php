@@ -161,7 +161,7 @@ placeholder="800" value="<?php echo @$quality?>" pattern="[0-9]+">
 
 <br>
 
-<div class="imagelist" style=" padding:10px;margin:10px 0;">
+<div class="imagelist" id="imagelist" style=" padding:10px;margin:10px 0;">
 
 <?php 
 
@@ -292,6 +292,7 @@ window.location.href = '".$SITEURL."admin/load.php?id=monsterGallery&addMonsterG
 
 
 
+<script src="<?php echo $SITEURL; ?>plugins/monsterGallery/js/Sortable.js"></script>
 
 <script>
 
@@ -313,9 +314,10 @@ document.querySelector('.saveMG').style.display="block";
 });
 
 
-  $( function() {
-    $( ".imagelist" ).sortable();
-  } );
+var el = document.getElementById('imagelist');
+	var sortable = Sortable.create(el, {
+		animation: 150
+	});
 
 </script>
 

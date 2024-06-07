@@ -180,7 +180,7 @@ global $SITEURL;; ?>
 		};
 	</script>
 
-	<div class="imagelist" style=" padding:10px; margin:10px 0;">
+	<div class="imagelist" id="imagelist" style=" padding:10px; margin:10px 0;">
 		<?php
 		if (isset($_GET['edit'])) {
 
@@ -262,6 +262,8 @@ if (isset($_POST['saveMG'])) {
 	};
 };; ?>
 
+<script src="<?php echo $SITEURL; ?>plugins/monsterGallery/js/Sortable.js"></script>
+
 <script>
 	document.querySelector('.addMG').addEventListener('click', (e) => {
 		e.preventDefault();
@@ -269,7 +271,9 @@ if (isset($_POST['saveMG'])) {
 						echo $SITEURL; ?>plugins/monsterGallery/filebrowser/imagebrowser.php?type=images&CKEditor=post-content', "", "left=10,top=10,width=960,height=500");
 	});
 
-	$(function() {
-		$(".imagelist").sortable();
+
+	var el = document.getElementById('imagelist');
+	var sortable = Sortable.create(el, {
+		animation: 150
 	});
 </script>
