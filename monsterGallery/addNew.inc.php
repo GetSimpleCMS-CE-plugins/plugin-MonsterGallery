@@ -257,7 +257,7 @@ if (isset($_POST['saveMG'])) {
 
 		echo "
 			<script type='text/javascript'>
-			window.location.href = '" . $SITEURL . "admin/load.php?id=monsterGallery&addMonsterGallery&edit=" . $_POST['MGtitle'] . "';
+			window.location.href = '" . $SITEURL . "admin/load.php?id=monsterGallery&addMonsterGallery&edit=" . str_replace(' ', '--', $_POST['MGtitle']) . "';
 			</script>";
 	};
 };; ?>

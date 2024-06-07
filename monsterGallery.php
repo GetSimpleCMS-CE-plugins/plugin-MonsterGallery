@@ -10,7 +10,7 @@ i18n_merge('monsterGallery') || i18n_merge('monsterGallery', 'en_US');
 register_plugin(
 	$thisfile, //Plugin id
 	'MonsterGallery', 	//Plugin name
-	'3.1', 		//Plugin version
+	'3.2', 		//Plugin version
 	'Multicolor',  //Plugin author
 	'https://github.com/multicolor-rgb', //author website
 	i18n_r('monsterGallery/LANG_Description'), //Plugin description
