@@ -170,8 +170,16 @@ global $SITEURL;; ?>
 
 	</div>
 
+
+	<div style="display:flex;gap:5px;margin-left:5px;">
 	<button class="addMG" style="background: #000; color:#fff; padding:0.5rem 1rem; border:none; margin-top:10px; cursor:pointer;"><?php echo i18n_r('monsterGallery/LANG_Add_Image'); ?></button>
-	<br>
+	<button class="reorderMG" onClick="event.preventDefault();reverseOrder();" style="background: #000; color:#fff; padding:0.4rem 1rem; border:none; margin-top:10px; cursor:pointer;"><svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M7 3V21M7 3L11 7M7 3L3 7M14 3H15M14 9H17M14 15H19M14 21H21" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg></button>
+	</div>
+	
+	
+
 
 	<script>
 		function closeThis(e) {
@@ -276,4 +284,14 @@ if (isset($_POST['saveMG'])) {
 	var sortable = Sortable.create(el, {
 		animation: 150
 	});
+
+
+	 
+function reverseOrder() {
+    const container = document.getElementById('imagelist');
+    const spans = Array.from(container.children);
+    spans.reverse();
+    spans.forEach(span => container.appendChild(span));
+}
+ 
 </script>
