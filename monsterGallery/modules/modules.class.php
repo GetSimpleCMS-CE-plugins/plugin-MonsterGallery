@@ -157,9 +157,12 @@ class MonsterModules
 
 		$extension =  pathinfo($values, PATHINFO_EXTENSION);
 		$base = pathinfo($values, PATHINFO_BASENAME);
+		$directoryPath = dirname($values);
+$parentDirectory = basename($directoryPath);
 		$base = hash('md4', $base);
 		$base = hash('md2', $base);
-		$finalfile = $folder . $width . "-" . $base . '.' . $extension;
+		$base = $base.rand(1,1000000);
+		$finalfile = $folder . $width . "-" .$parentDirectory."-". $base . '.' . $extension;
 		if (file_exists($finalfile)) {
 		} else {
 			$origPic = imagecreatefromstring($file);
