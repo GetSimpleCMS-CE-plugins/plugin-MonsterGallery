@@ -161,7 +161,6 @@ class MonsterModules
 $parentDirectory = basename($directoryPath);
 		$base = hash('md4', $base);
 		$base = hash('md2', $base);
-		$base = $base.rand(1,1000000);
 		$finalfile = $folder . $width . "-" .$parentDirectory."-". $base . '.' . $extension;
 		if (file_exists($finalfile)) {
 		} else {
