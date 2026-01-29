@@ -26,13 +26,9 @@ add_action('theme-header', 'makeMagic');
 
 global $modules;
 
-
 echo $modules;
 
-
-function monsterGallery()
-{
-
+function monsterGallery() {
 	if (isset($_GET['credits'])) {
 		include(GSPLUGINPATH . 'monsterGallery/credits.inc.php');
 	};
@@ -61,14 +57,10 @@ function monsterGallery()
 	};
 };
 
-
-
-function makeMagic()
-{
+function makeMagic() {
 	global $modules;
 
-	function mgShow($matches)
-	{
+	function mgShow($matches) {
 
 		//get class Monster Modules;
 		$modulesClass = new MonsterModules();
@@ -114,12 +106,9 @@ function makeMagic()
 /// style loader
 add_action('theme-header', 'styleloader');
 
-
-function styleloader()
-{
+function styleloader() {
 	global $SITEURL;
 	global $modules;
-
 
 	if (isset($modules)) {
 
@@ -146,19 +135,15 @@ function styleloader()
 	};
 };
 
-
 ///grab function inside theme
 
-
-function monsterGalleryShow($matches)
-{
+function monsterGalleryShow($matches) {
 	//get class Monster Modules;
 
 	$modulesClass = new MonsterModules();
 	$modulesClass->set_name_frontend($matches);
 	global $SITEURL;
 	global $modules;
-
 
 	//load modules
 	if ($modulesClass->getNameModules() == 'glightbox') {
@@ -188,9 +173,7 @@ function monsterGalleryShow($matches)
 		echo $modulesClass->gal;
 	};
 	
-
 	// style
-
 
 	if (isset($modules)) {
 
@@ -216,14 +199,7 @@ function monsterGalleryShow($matches)
 		};
 	};
 
-
 };
-
-
-
-
-
-
 
 /// script loader
 add_action('theme-footer', 'scriptloader');
@@ -235,7 +211,8 @@ function scriptloader()
 
 	if (isset($modules)) {
 		if ($modules == 'glightbox') {
-			echo '<script src="' . $SITEURL . 'plugins/monsterGallery/modules/glightbox/glightbox.min.js"></script>';
+			echo '<script src="' . $SITEURL . 'plugins/monsterGallery/modules/glightbox/glightbox.min.js"></script>
+		';
 			echo '<script src="' . $SITEURL . 'plugins/monsterGallery/modules/glightbox/glightboxrun.js"></script>';
 		};
 
