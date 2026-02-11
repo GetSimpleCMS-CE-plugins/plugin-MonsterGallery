@@ -30,7 +30,7 @@ $i18n = array (
 	"LANG_Update"			=>	"Actualizar URL de la Galería",
 	"LANG_Done"				=>	"¡Hecho!",
 	
-	"LANG_MG_Edit"			=>	"Editar MonsterGallery",
+	"LANG_MG_Edit"			=>	"Añadir/Editar Galería",
 	"LANG_Gallery_Title"	=>	"Título de la galería",
 	"LANG_Gallery_Type"		=>	"Tipo de galería",
 	"LANG_Thumb_Width"		=>	"Ancho de la miniatura (en px)",

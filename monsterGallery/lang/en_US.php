@@ -30,7 +30,7 @@ $i18n = array(
 	"LANG_Update"			=>	"Update Gallery URL",
 	"LANG_Done"				=>	"Done!",
 
-	"LANG_MG_Edit"			=>	"MonsterGallery Edit",
+	"LANG_MG_Edit"			=>	"Add/Edit Gallery",
 	"LANG_Gallery_Title"	=>	"Gallery Title",
 	"LANG_Gallery_Type"		=>	"Gallery Type",
 	"LANG_Thumb_Width"		=>	"Thumbnail Width (in px)",

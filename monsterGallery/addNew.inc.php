@@ -45,22 +45,71 @@ global $SITEURL;; ?>
 		height: 20px;
 		color: #fff;
 		border: none;
+		cursor:pointer;
+		border-radius:3px;
+		margin:5px 5px 0 0;
 	}
-
+	
+	.optionMonster {
+		width:100%;
+		border-radius:3px;
+		background: #000; 
+		padding:10px; 
+		margin:15px 0; 
+		box-sizing: border-box; 
+		color:#fff; 
+		display:grid; 
+		grid-template-columns:1fr 1fr 1fr 1fr;
+		gap:10px; 
+		box-sizing: border-box;
+	}
+	
 	.optionMonster p {
 		margin-bottom: 5px !important;
 	}
+	
+	.mg-btn{
+		border-radius:5px;
+		padding:0.5rem 1rem;
+		text-decoration: none;
+		color:#fff!important;
+		border:none;
+		margin-top:10px; 
+		cursor:pointer;
+	}
+	
+	.mg-btn.mg-new{
+		background-color:#004F99!important;
+	}
+	
+	.mg-btn.mg-delete{
+		background-color:#FF3333!important;
+	}
+	
+	.mg-btn.mg-migrate{
+		background-color:#000!important;
+	}
+	
+	.mg-btn.mg-credits{
+		background-color:#8B8B8B!important;
+	}
+	
+	.mg-btn.mg-edit{
+		background-color:#FF9900!important;
+	}
+	
+	.mg-btn.mg-save{
+		background-color:#4CAF50!important;
+	}
 </style>
 
-
-
-<div style="display:flex;width:100%;justify-content:space-between;align-items:center;">
+<div style="display:flex;width:100%;justify-content:space-between;align-items:center;margin-bottom:10px;">
 	<h3><?php echo i18n_r('monsterGallery/LANG_MG_Edit'); ?></h3>
 	<a href="<?php
 				global $SITEURL;
 				global $GSADMIN;
 
-				echo $SITEURL . $GSADMIN . '/load.php?id=monsterGallery&monsterGalleryList'; ?>" style="margin-bottom:10px;display:inline-block;background:#00;background:#000;text-decoration:none;color:#fff; padding:10px;"><?php echo i18n_r('monsterGallery/LANG_Back_To_List'); ?></a>
+				echo $SITEURL . $GSADMIN . '/load.php?id=monsterGallery&monsterGalleryList'; ?>" class="mg-btn mg-migrate"><?php echo i18n_r('monsterGallery/LANG_Back_To_List'); ?></a>
 </div>
 
 <form class="mgForm" method="POST">
@@ -68,7 +117,7 @@ global $SITEURL;; ?>
 
 	<input type="hidden" name="check" style="width:100%; padding:10px; box-sizing: border-box;" placeholder="<?php echo i18n_r('monsterGallery/LANG_Gallery_Title'); ?>" <?php if (isset($_GET['edit'])) : ?> value="<?php echo str_replace('--', ' ', $_GET['edit']); ?>" <?php endif; ?>>
 
-	<div class="optionMonster" style="width:100%;background: #000; padding:10px; margin-top:10px; box-sizing: border-box; color:#fff; display:grid; grid-template-columns:1fr 1fr 1fr 1fr;gap:10px; box-sizing: border-box;">
+	<div class="optionMonster" xstyle="width:100%;background: #000; padding:10px; margin-top:10px; box-sizing: border-box; color:#fff; display:grid; grid-template-columns:1fr 1fr 1fr 1fr;gap:10px; box-sizing: border-box;">
 
 		<?php
 		if (isset($_GET['edit'])) {
@@ -125,11 +174,7 @@ global $SITEURL;; ?>
 			<input type="" name="gap" style="width:100%; padding:5px; box-sizing: border-box; font-size:12px;" placeholder="10px" required value="<?php echo @$gap; ?>">
 		</div>
 
-
 		<!-- mobile -->
-
-
-
 		<div style="grid-column: 1/2;">
 			<p style="margin: 0;padding:0;"><?php echo i18n_r('monsterGallery/LANG_Mobile_Width'); ?></p>
 			<input type="" name="mobilewidth" style="width:100%; padding:5px; box-sizing: border-box; font-size:12px;" required placeholder="100%" value="<?php echo @$mobilewidth; ?>">
@@ -151,10 +196,6 @@ global $SITEURL;; ?>
 			<input type="" name="ownclass" style="width:100%; padding:5px; box-sizing: border-box; font-size:12px;" placeholder="<?php echo i18n_r('monsterGallery/LANG_Own_Class'); ?>" value="<?php echo @$ownclass; ?>">
 		</div>
 
-
-
-
-
 		<div style="grid-column:1/6;">
 			<p style="margin: 0; padding:0;"><?php echo i18n_r('monsterGallery/LANG_Thumbnail_Fit'); ?></p>
 			<select name="thumbfit" style="padding:8px;border:none;width:100%; font-size:12px;background:#fff;">
@@ -163,24 +204,13 @@ global $SITEURL;; ?>
 			</select>
 		</div>
 
-
-
-
-
-
 	</div>
-
 
 	<div style="display:flex;gap:5px;margin-left:5px;">
-	<button class="addMG" style="background: #000; color:#fff; padding:0.5rem 1rem; border:none; margin-top:10px; cursor:pointer;"><?php echo i18n_r('monsterGallery/LANG_Add_Image'); ?></button>
-	<button class="reorderMG" onClick="event.preventDefault();reverseOrder();" style="background: #000; color:#fff; padding:0.4rem 1rem; border:none; margin-top:10px; cursor:pointer;"><svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M7 3V21M7 3L11 7M7 3L3 7M14 3H15M14 9H17M14 15H19M14 21H21" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-</svg></button>
+		<button class="addMG mg-btn mg-edit"><?php echo i18n_r('monsterGallery/LANG_Add_Image'); ?></button>
+		<button class="reorderMG mg-btn mg-migrate" onClick="event.preventDefault();reverseOrder();"><svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 3V21M7 3L11 7M7 3L3 7M14 3H15M14 9H17M14 15H19M14 21H21" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
 	</div>
 	
-	
-
-
 	<script>
 		function closeThis(e) {
 			e.preventDefault();
@@ -202,10 +232,10 @@ global $SITEURL;; ?>
 				foreach ($fileditJson->images as $key => $value) {
 					echo '
 						<span class="monsterspan"> 
-							<button class="closeThis" onClick="event.preventDefault();this.parentElement.remove()" style=" cursor:pointer;">X</button>
+							<button class="closeThis" onClick="event.preventDefault();this.parentElement.remove()"  >✖</button>
 							<img src="' . $value . '">
 							<input type="text" name="name[]" value="' . @$fileditJson->names[$key] . '" placeholder="' . i18n_r('monsterGallery/LANG_Image_Title') . '">
-							<textarea  name="description[]" value="description" placeholder="' . i18n_r('monsterGallery/LANG_Image_Description') . '" style="width:100%; height:60px; box-sizing:border-box; padding:5px;">' . @$fileditJson->descriptions[$key] . '</textarea>
+							<textarea  name="description[]" value="description" placeholder="' . i18n_r('monsterGallery/LANG_Image_Description') . 'xx" style="width:100%; height:60px; box-sizing:border-box; padding:5px;">' . @$fileditJson->descriptions[$key] . '</textarea>
 							<input type="text" name="image[]" value = "' . @$value . '" >
 						</span>';
 				};
@@ -213,7 +243,7 @@ global $SITEURL;; ?>
 		};; ?>
 	</div>
 
-	<input type="submit" name="saveMG" class="saveMG" value="<?php echo i18n_r('BTN_SAVESETTINGS'); ?>" style="background: #000; color:#fff; padding:0.5rem 1rem; border:none; cursor:pointer;">
+	<input type="submit" name="saveMG" class="mg-btn mg-save" value="<?php echo i18n_r('BTN_SAVESETTINGS'); ?>" style="background: #000; color:#fff; padding:0.5rem 1rem; border:none; cursor:pointer;">
 </form>
 
 <?php
@@ -279,19 +309,15 @@ if (isset($_POST['saveMG'])) {
 						echo $SITEURL; ?>plugins/monsterGallery/filebrowser/imagebrowser.php?type=images&CKEditor=post-content', "", "left=10,top=10,width=960,height=500");
 	});
 
-
 	var el = document.getElementById('imagelist');
 	var sortable = Sortable.create(el, {
 		animation: 150
 	});
 
-
-	 
 function reverseOrder() {
     const container = document.getElementById('imagelist');
     const spans = Array.from(container.children);
     spans.reverse();
     spans.forEach(span => container.appendChild(span));
 }
- 
 </script>

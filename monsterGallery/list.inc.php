@@ -27,27 +27,57 @@
 		margin: 0 !important;
 		padding: 0 !important;
 	}
+	
+	.mg-btn{
+		border-radius:5px;
+		padding:0.5rem 1rem;
+		text-decoration: none;
+		color:#fff!important;
+	}
+	
+	.mg-btn.mg-new{
+		background-color:#004F99!important;
+	}
+	
+	.mg-btn.mg-delete{
+		background-color:#FF3333!important;
+	}
+	
+	.mg-btn.mg-migrate{
+		background-color:#000!important;
+	}
+	
+	.mg-btn.mg-credits{
+		background-color:#8B8B8B!important;
+	}
+	
+	.mg-btn.mg-edit{
+		background-color:#FF9900!important;
+	}
+	
 </style>
 
 <h3><?php echo i18n_r('monsterGallery/LANG_MG_List'); ?></h3>
 
-<a href="<?php global $SITEURL;
-			echo $SITEURL; ?>admin/load.php?id=monsterGallery&addMonsterGallery" style="padding:0.5rem 1rem;background: #000;color:#fff;text-decoration: none;"><?php echo i18n_r('monsterGallery/LANG_Add_New'); ?></a>
+<div id="mg_nav">
+	<a id="mg_new" href="<?php global $SITEURL;
+				echo $SITEURL; ?>admin/load.php?id=monsterGallery&addMonsterGallery" class="mg-btn mg-new"><?php echo i18n_r('monsterGallery/LANG_Add_New'); ?></a>
 
-<a href="<?php global $SITEURL;
-			echo $SITEURL; ?>admin/load.php?id=monsterGallery&monsterGalleryList&clearCache" style="padding:0.5rem 1rem;background: #000;color:#fff;text-decoration: none;background: red;"><?php echo i18n_r('monsterGallery/LANG_Clear_Cache'); ?></a>
+	<a id="mg_cache" href="<?php global $SITEURL;
+				echo $SITEURL; ?>admin/load.php?id=monsterGallery&monsterGalleryList&clearCache" class="mg-btn mg-delete"><?php echo i18n_r('monsterGallery/LANG_Clear_Cache'); ?></a>
 
-<a href="<?php global $SITEURL;
-			echo $SITEURL; ?>admin/load.php?id=monsterGallery&migrateGallery" style="padding:0.5rem 1rem;background: #000;color:#fff;text-decoration: none;"><?php echo i18n_r('monsterGallery/LANG_Migrate'); ?></a>
+	<a id="mg_migrate" href="<?php global $SITEURL;
+				echo $SITEURL; ?>admin/load.php?id=monsterGallery&migrateGallery" class="mg-btn mg-migrate"><?php echo i18n_r('monsterGallery/LANG_Migrate'); ?></a>
 
-<a href="<?php global $SITEURL;
-			echo $SITEURL; ?>admin/load.php?id=monsterGallery&credits" style="padding:0.5rem 1rem;background: #000;color:#fff;text-decoration: none;"><?php echo i18n_r('monsterGallery/LANG_Credits'); ?></a>
+	<a id="mg_credits" href="<?php global $SITEURL;
+				echo $SITEURL; ?>admin/load.php?id=monsterGallery&credits" class="mg-btn mg-credits"><?php echo i18n_r('monsterGallery/LANG_Credits'); ?></a>
+</div>
 
 <ul style="margin:0;padding: 0;display: block;margin-top: 30px;">
 	<li class="galitem" style="font-weight: bold;">
-		<p><?php echo i18n_r('monsterGallery/LANG_Name'); ?></p>
-		<p><?php echo i18n_r('monsterGallery/LANG_Shortcode'); ?></p>
-		<p><?php echo i18n_r('monsterGallery/LANG_Edit_Delete'); ?></p>
+		<p id="gal-title"><?php echo i18n_r('monsterGallery/LANG_Name'); ?></p>
+		<p id="gal-codes"><?php echo i18n_r('monsterGallery/LANG_Shortcode'); ?></p>
+		<p id="gal-actions"><?php echo i18n_r('monsterGallery/LANG_Edit_Delete'); ?></p>
 	</li>
 
 	<?php
@@ -57,13 +87,15 @@
 
 		echo '
 			<li class="galitem">
-				<p>' . str_replace('--', ' ', $name) . '</p>
-				<p style="opacity:0.7">[% mg=' . $name . ' %] <br>
-				&lt;?php monsterGalleryShow("' . $name . '");?&gt;
+				<p id="gal-title" style="color:#333;font-weight:600;">' . str_replace('--', ' ', $name) . '</p>
+				<p id="gal-codes" style="opacity:0.6;">
+					<span style="color:#ff0066">[% mg=' . $name . ' %] </span>
+					<br>
+					<span style="color:#000066">&lt;?php monsterGalleryShow("' . $name . '");?&gt; </span>
 				</p>
-				<div style="display:flex;gap:10px;">
-					<a href="' . $SITEURL . 'admin/load.php?id=monsterGallery&addMonsterGallery&edit=' . $name . '">' . i18n_r('monsterGallery/LANG_Edit') . '</a>
-					<a   onclick="return confirm(`' . i18n_r('monsterGallery/LANG_Delete_Question') . '`);" style="background:red;" href="' . $SITEURL . 'admin/load.php?id=monsterGallery&addMonsterGallery&delete=' . $name . '">' . i18n_r('monsterGallery/LANG_Delete') . '</a>
+				<div id="gal-actions" style="display:flex;gap:10px;">
+					<a class="mg-btn mg-edit" href="' . $SITEURL . 'admin/load.php?id=monsterGallery&addMonsterGallery&edit=' . $name . '">' . i18n_r('monsterGallery/LANG_Edit') . '</a>
+					<a class="mg-btn mg-delete" onclick="return confirm(`' . i18n_r('monsterGallery/LANG_Delete_Question') . '`);" href="' . $SITEURL . 'admin/load.php?id=monsterGallery&addMonsterGallery&delete=' . $name . '">' . i18n_r('monsterGallery/LANG_Delete') . '</a>
 				</div>
 			</li>
 			';
@@ -83,8 +115,6 @@
 if (isset($_GET['clearCache'])) {
 	$imager = glob(GSDATAOTHERPATH . 'monsterGallery/thumb/*.*', GLOB_BRACE);
 
-
-
 	foreach ($imager as $img) {
 		unlink($img);
 	};
@@ -93,4 +123,4 @@ if (isset($_GET['clearCache'])) {
 		unlink(GSPLUGINPATH . 'monsterGallery/thumb/.htaccess');
 		rmdir(GSPLUGINPATH . 'monsterGallery/thumb/');
 	};
-};; ?>
+}; ?>
