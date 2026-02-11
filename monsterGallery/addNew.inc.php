@@ -96,6 +96,7 @@ global $SITEURL;; ?>
 	
 	.mg-btn.mg-edit{
 		background-color:#FF9900!important;
+		font-weight:600;
 	}
 	
 	.mg-btn.mg-save{
