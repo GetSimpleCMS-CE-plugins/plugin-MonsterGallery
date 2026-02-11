@@ -86,8 +86,26 @@
     .wrapper,
     #maincontent,
     #imageTable {
-      width: 100%
+		width: 100%
     }
+	a {
+		text-decoration:none!important;
+	}
+	a:hover {
+		text-decoration:underline!important;
+	}
+	.mg-btn{
+		border-radius:5px;
+		padding:0.7rem 1rem;
+		text-decoration: none;
+		color:#fff!important;
+		border:none;
+		margin-bottom:10px;
+		cursor:pointer;
+	}
+	.mg-btn.mg-new{
+		background-color:#004F99!important;
+	}
   </style>
 </head>
 
@@ -109,9 +127,7 @@
 					}
 				?>
 				</div>
-		
 				
-		
 				<table class="highlight" id="imageTable">
 				  <tbody>
 					<?php
@@ -121,7 +137,7 @@
 					?>
 						<tr class="All">
 						  <td class="" colspan="5">
-							<img src="../../../<?php echo $admin; ?>/template/images/folder.png" width="11" />
+							<img src="../../../<?php echo $admin; ?>/template/images/folder.png" style="vertical-align:middle"/>
 							<a href="imagebrowser.php?path=<?php echo $p; ?>&amp;func=<?php echo $func; ?>&amp;w=<?php echo $w; ?>&amp;h=<?php echo $h; ?>&autoclose=1" title="<?php echo $upload['name']; ?>"><strong><?php echo $upload['name']; ?></strong></a>
 						  </td>
 						</tr>
@@ -142,10 +158,10 @@
 						<tr class="All images">
 						  <td>
 							<a href="javascript:void(0)" title="<?php i18n('SELECT_FILE') . ': ' . htmlspecialchars(@$upload['name']); ?>" onclick="<?php echo $onclick; ?>">
-							  <img style="width:60px;height:60px;object-fit: cover" src="<?php echo $SITEURL . 'data/uploads/' . $subPath . $upload['name']; ?>" />
+							  <img style="width:80px;height:60px;object-fit: cover;border:solid 1px #676767; padding:2px;" src="<?php echo $SITEURL . 'data/uploads/' . $subPath . $upload['name']; ?>" />
 							</a>
 						  </td>
-						  <td>
+						  <td style="padding-top:25px;">
 							<a class="primarylink" href="javascript:void(0)" title="<?php i18n('SELECT_FILE') . ': ' . htmlspecialchars(@$upload['name']); ?>" onclick="<?php echo $onclick; ?>">
 							  <?php echo htmlspecialchars($upload['name']); ?>
 							</a>
@@ -155,12 +171,12 @@
 							  <?php if (@$upload['description']) echo preg_replace('/\r?\n/', '<br/>', htmlspecialchars($upload['description'])); ?>
 							</p>
 						  </td>
-						  <td style="white-space:nowrap;"><span><?php echo $upload['width']; ?> x <?php echo $upload['height']; ?></span></td>
-						  <td style="width:80px;text-align:right;"><span><?php echo $upload['size']; ?></span></td>
+						  <td style="white-space:nowrap; padding-top:25px;"><span><?php echo $upload['width']; ?> x <?php echo $upload['height']; ?></span></td>
+						  <td style="width:80px;text-align:right; padding-top:25px;"><span><?php echo $upload['size']; ?></span></td>
 						  <?php if (isset($filePerms) && isset($fileOwner['name'])) { ?>
-							<td style="width:70px;text-align:right;"><span><?php echo $fileOwner['name']; ?>/<?php echo $filePerms; ?></span></td>
+							<td style="width:70px;text-align:right; padding-top:25px;"><span><?php echo $fileOwner['name']; ?>/<?php echo $filePerms; ?></span></td>
 						  <?php } ?>
-						  <td style="width:85px;text-align:right;"><span><?php echo shtDate($upload['date']); ?></span></td>
+						  <td style="width:85px;text-align:right; padding-top:25px;"><span><?php echo shtDate($upload['date']); ?></span></td>
 						</tr>
 						<?php if ($debug) echo '<tr><td colspan="4"><pre>' . htmlspecialchars(@$upload['debug']) . '</pre></td></tr>'; ?>
 					<?php
@@ -170,17 +186,16 @@
 				  </tbody>
 				</table>
 
-				<button class="addall" style="background: #000;color:#fff;padding:0.5rem 1rem;border: none;"><?php echo i18n_r('monsterGallery/LANG_Add_All_Images') ;?></button>
+				<button class="addall mg-btn mg-new" xstyle="background: #000;color:#fff;padding:0.5rem 1rem;border: none;"><?php echo i18n_r('monsterGallery/LANG_Add_All_Images') ;?></button>
 
 				<p><em><b><?php echo count((array)$filesSorted); ?></b> <?php i18n('TOTAL_FILES'); ?> (<?php echo fSize($totalsize); ?>)</em></p>
 				<p style="display:none"><a href="javascript:void(0)" onclick="submitAllLinks()"><?php i18n('i18n_gallery/ADD_ALL_IMAGES'); ?></a></p>
 				<?php // foreach ($metadata as &$m) if (!@$m['title']) $m['title'] = basename($m['url']); 
 				?>
 				<script type='text/javascript'>
-				  // <![CDATA[
-				  var metadata = <?php echo json_encode($metadata); ?>;
-
-				  // ]]>
+					// <![CDATA[
+					var metadata = <?php echo json_encode($metadata); ?>;
+					// ]]>
 				</script>
 
 				<script>
@@ -191,12 +206,12 @@
 
 						window.opener.document.querySelector('.imagelist').insertAdjacentHTML('afterbegin', `
 <span class="monsterspan"> 
-<button class="closeThis" onclick="event.preventDefault();this.parentElement.remove()">X</button>
-<img src="${linkerNew}">
-<input type="text" name="name[]" placeholder="<?php echo i18n_r('monsterGallery/LANG_Image_Title') ;?>">
-<textarea  name="description[]" value="description" placeholder="<?php echo i18n_r('monsterGallery/LANG_Image_Description') ;?>" style="width:100%;height:60px;box-sizing:border-box;padding:5px;">
-</textarea>
-<input type="text" name="image[]" value = "${linkerNew}" >
+	<button class="closeThis" onclick="event.preventDefault();this.parentElement.remove()">X</button>
+	<img src="${linkerNew}">
+	<input type="text" name="name[]" placeholder="<?php echo i18n_r('monsterGallery/LANG_Image_Title') ;?>">
+	<textarea  name="description[]" value="description" placeholder="<?php echo i18n_r('monsterGallery/LANG_Image_Description') ;?>" style="width:100%;height:60px;box-sizing:border-box;padding:5px;">
+	</textarea>
+	<input type="text" name="image[]" value = "${linkerNew}" >
 </span>
 `);
 
