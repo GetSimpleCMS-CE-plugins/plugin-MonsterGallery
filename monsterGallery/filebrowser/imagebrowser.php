@@ -40,6 +40,8 @@
 	$debug = @$_GET['debug'];
 
 	global $LANG;
+	global $GSADMIN;
+	global $SITEURL;
 	$LANG_header = preg_replace('/(?:(?<=([a-z]{2}))).*/', '', $LANG);
 	$count = "0";
 	$dircount = "0";
@@ -80,8 +82,8 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <title><?php echo i18n_r('FILE_BROWSER'); ?></title>
-  <link rel="shortcut icon" href="../../../<?php echo $admin; ?>/favicon.png" type="image/x-icon" />
-  <link rel="stylesheet" type="text/css" href="../../../<?php echo $admin; ?>/template/style.php?v=<?php echo GSVERSION; ?>" media="screen" />
+  <link rel="shortcut icon" href="<?php echo $SITEURL . $GSADMIN; ?>/favicon.png" type="image/x-icon" />
+  <link rel="stylesheet" type="text/css" href="<?php echo $SITEURL . $GSADMIN; ?>/template/style.php?v=<?php echo GSVERSION; ?>" media="screen" />
   <style>
     .wrapper,
     #maincontent,
@@ -106,6 +108,25 @@
 	.mg-btn.mg-new{
 		background-color:#004F99!important;
 	}
+	.image-checkbox {
+		width: 18px;
+		height: 18px;
+		cursor: pointer;
+		margin-right: 10px;
+		vertical-align: middle;
+	}
+	.select-all-container {
+		padding: 10px 0;
+		margin-bottom: 10px;
+		border-bottom: 1px solid #ddd;
+	}
+	.select-all-checkbox {
+		width: 18px;
+		height: 18px;
+		cursor: pointer;
+		margin-right: 8px;
+		vertical-align: middle;
+	}
   </style>
 </head>
 
@@ -114,7 +135,7 @@
 		<div id="maincontent">
 			<div class="main" style="border:none;">
 				<h3><?php i18n('UPLOADED_FILES'); ?></h3>
-				<div class="h5">/ <a href="?func=<?php echo $func; ?>&amp;w=<?php echo $w; ?>&amp;h=<?php echo $h; ?>&amp;autoclose=<?php echo $autoclose; ?>">uploads</a> /
+				<div class="h5">/ <a href="?func=<?php echo $func; ?>&amp;w=<?php echo $w; ?>&amp;h=<?php echo $h; ?>&amp;autoclose=<?php echo $autoclose; ?>"><?php echo i18n_r('monsterGallery/LANG_Files') ;?></a> /
 				<?php
 					foreach ($pathParts as $pathPart) {
 						if ($pathPart != '') {
@@ -128,6 +149,15 @@
 				?>
 				</div>
 				
+				<?php if (count((array)$filesSorted) != 0) { ?>
+				<div class="select-all-container">
+					<label>
+						<input type="checkbox" id="selectAllCheckbox" class="select-all-checkbox">
+						<strong><?php echo i18n_r('monsterGallery/LANG_Select_All_Images') ;?></strong>
+					</label>
+				</div>
+				<?php } ?>
+				
 				<table class="highlight" id="imageTable">
 				  <tbody>
 					<?php
@@ -136,9 +166,11 @@
 								$p = $subPath . $upload['name'];
 					?>
 						<tr class="All">
-						  <td class="" colspan="5">
-							<img src="../../../<?php echo $admin; ?>/template/images/folder.png" style="vertical-align:middle"/>
-							<a href="imagebrowser.php?path=<?php echo $p; ?>&amp;func=<?php echo $func; ?>&amp;w=<?php echo $w; ?>&amp;h=<?php echo $h; ?>&autoclose=1" title="<?php echo $upload['name']; ?>"><strong><?php echo $upload['name']; ?></strong></a>
+						  <td class="" colspan="6">
+							<a href="imagebrowser.php?path=<?php echo $p; ?>&amp;func=<?php echo $func; ?>&amp;w=<?php echo $w; ?>&amp;h=<?php echo $h; ?>&autoclose=1" title="<?php echo $upload['name']; ?>">
+								<svg xmlns="http://www.w3.org/2000/svg" style="vertical-align:middle; margin:0 10px 0 40px" width="36" height="36" viewBox="0 0 48 48"><rect width="48" height="48" fill="none"/><path fill="#ffa000" d="M40 12H22l-4-4H8c-2.2 0-4 1.8-4 4v8h40v-4c0-2.2-1.8-4-4-4"/><path fill="#ffca28" d="M40 12H8c-2.2 0-4 1.8-4 4v20c0 2.2 1.8 4 4 4h32c2.2 0 4-1.8 4-4V16c0-2.2-1.8-4-4-4"/></svg> 
+								<strong><?php echo $upload['name']; ?></strong>
+							</a>
 						  </td>
 						</tr>
 					  <?php
@@ -156,9 +188,12 @@
 						}
 					  ?>
 						<tr class="All images">
+						  <td style="width: 30px; padding-top:25px;">
+							<input type="checkbox" class="image-checkbox" data-index="<?php echo count($metadata) - 1; ?>">
+						  </td>
 						  <td>
 							<a href="javascript:void(0)" title="<?php i18n('SELECT_FILE') . ': ' . htmlspecialchars(@$upload['name']); ?>" onclick="<?php echo $onclick; ?>">
-							  <img style="width:80px;height:60px;object-fit: cover;border:solid 1px #676767; padding:2px;" src="<?php echo $SITEURL . 'data/uploads/' . $subPath . $upload['name']; ?>" />
+							  <img style="width:100px; height:65px;object-fit: cover;border:solid 1px #676767; padding:2px;" src="<?php echo $SITEURL . 'data/uploads/' . $subPath . $upload['name']; ?>" />
 							</a>
 						  </td>
 						  <td style="padding-top:25px;">
@@ -172,13 +207,13 @@
 							</p>
 						  </td>
 						  <td style="white-space:nowrap; padding-top:25px;"><span><?php echo $upload['width']; ?> x <?php echo $upload['height']; ?></span></td>
-						  <td style="width:80px;text-align:right; padding-top:25px;"><span><?php echo $upload['size']; ?></span></td>
+						  <td style="width:80px; text-align:right; padding-top:25px;"><span><?php echo $upload['size']; ?></span></td>
 						  <?php if (isset($filePerms) && isset($fileOwner['name'])) { ?>
-							<td style="width:70px;text-align:right; padding-top:25px;"><span><?php echo $fileOwner['name']; ?>/<?php echo $filePerms; ?></span></td>
+							<td style="width:70px; text-align:right; padding-top:25px;"><span><?php echo $fileOwner['name']; ?>/<?php echo $filePerms; ?></span></td>
 						  <?php } ?>
-						  <td style="width:85px;text-align:right; padding-top:25px;"><span><?php echo shtDate($upload['date']); ?></span></td>
+						  <td style="width:85px; text-align:right; padding-top:25px;"><span><?php echo shtDate($upload['date']); ?></span></td>
 						</tr>
-						<?php if ($debug) echo '<tr><td colspan="4"><pre>' . htmlspecialchars(@$upload['debug']) . '</pre></td></tr>'; ?>
+						<?php if ($debug) echo '<tr><td colspan="7"><pre>' . htmlspecialchars(@$upload['debug']) . '</pre></td></tr>'; ?>
 					<?php
 					  }
 					}
@@ -186,7 +221,7 @@
 				  </tbody>
 				</table>
 
-				<button class="addall mg-btn mg-new" xstyle="background: #000;color:#fff;padding:0.5rem 1rem;border: none;"><?php echo i18n_r('monsterGallery/LANG_Add_All_Images') ;?></button>
+				<button class="addselected mg-btn mg-new"><?php echo i18n_r('monsterGallery/LANG_Add_Images') ;?></button>
 
 				<p><em><b><?php echo count((array)$filesSorted); ?></b> <?php i18n('TOTAL_FILES'); ?> (<?php echo fSize($totalsize); ?>)</em></p>
 				<p style="display:none"><a href="javascript:void(0)" onclick="submitAllLinks()"><?php i18n('i18n_gallery/ADD_ALL_IMAGES'); ?></a></p>
@@ -199,6 +234,27 @@
 				</script>
 
 				<script>
+					// Select All functionality
+					document.getElementById('selectAllCheckbox')?.addEventListener('change', function() {
+						const checkboxes = document.querySelectorAll('.image-checkbox');
+						checkboxes.forEach(checkbox => {
+							checkbox.checked = this.checked;
+						});
+					});
+
+					// Update Select All checkbox when individual checkboxes change
+					document.querySelectorAll('.image-checkbox').forEach(checkbox => {
+						checkbox.addEventListener('change', function() {
+							const allCheckboxes = document.querySelectorAll('.image-checkbox');
+							const checkedCheckboxes = document.querySelectorAll('.image-checkbox:checked');
+							const selectAllCheckbox = document.getElementById('selectAllCheckbox');
+							
+							if (selectAllCheckbox) {
+								selectAllCheckbox.checked = allCheckboxes.length === checkedCheckboxes.length;
+							}
+						});
+					});
+
 					function submitLink(e) {
 						let linker = document.querySelectorAll('.images img')[e].getAttribute('src');
 						console.log(linker);
@@ -218,10 +274,19 @@
 					window.close();
 					}
 
-					document.querySelector('.addall').addEventListener('click', () => {
+					// Add only selected images
+					document.querySelector('.addselected').addEventListener('click', () => {
+						const checkedBoxes = document.querySelectorAll('.image-checkbox:checked');
+						
+						if (checkedBoxes.length === 0) {
+							alert('Please select at least one image');
+							return;
+						}
 
-						document.querySelectorAll('.images img').forEach(x => {
-							let linker = x.getAttribute('src');
+						checkedBoxes.forEach(checkbox => {
+							const index = checkbox.getAttribute('data-index');
+							const img = document.querySelectorAll('.images img')[index];
+							let linker = img.getAttribute('src');
 							console.log(linker);
 							let linkerNew = linker;
 

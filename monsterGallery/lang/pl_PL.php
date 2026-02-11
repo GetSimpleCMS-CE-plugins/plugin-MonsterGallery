@@ -37,14 +37,18 @@ $i18n = array (
 	"LANG_Thumb_Display_Width"	=>	"Wyś. Szerokość Miniatury",
 	"LANG_Thumb_Height"		=>	"Wyś. Wysokość Miniatury",
 	"LANG_Thumb_Margin"		=>	"Margines miniatury",
-	"LANG_Add_Image"		=>	"Dodaj zdjęcie",
-	"LANG_Image_Description" =>	"Podpis zdjęcia",
-	"LANG_Add_All_Images"	=>	"Dodaj wszystkie zdjęcia",
 	"LANG_Image_Title"	=>	"Nazwa zdjęcia",
-	
-	"LANG_PayPal"			=>	"Lubisz moje wtyczki? Kup mi ☕",
-	"LANG_Delete_Question" => 'Czy jesteś pewien, że chcesz usunąć ten element?',
+	"LANG_Image_Description" =>	"Podpis zdjęcia",
+	"LANG_Add_Image"		=>	"Dodaj zdjęcie",
 
+	"LANG_Add_All_Images"	=>	"Dodaj wszystkie zdjęcia",
+	"LANG_Select_All_Images"	=>	"Wybierz wszystkie obrazy",
+	"LANG_Add_Images"		=>	"Dodaj obrazy",
+	"LANG_Files"			=>	"Pliki",
+
+	"LANG_PayPal"			=>	"Lubisz moje wtyczki? Kup mi ☕",
+	
+	"LANG_Delete_Question" => 'Czy jesteś pewien, że chcesz usunąć ten element?',
 	
 	//new for 3.0
 
@@ -54,4 +58,5 @@ $i18n = array (
 	"LANG_Own_Class" => 'Własne klasy',
 	"LANG_Thumbnail_Fit" => 'Dopasowanie miniatury',
 	"LANG_Back_To_List" =>'Powrót do listy'
+	
 );

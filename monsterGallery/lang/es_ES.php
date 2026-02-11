@@ -42,6 +42,9 @@ $i18n = array (
 	"LANG_Add_Image"		=>	"Añadir Imagen",
 	
 	"LANG_Add_All_Images"	=>	"Añadir Todas Imagenes",
+	"LANG_Select_All_Images"	=>	"Seleccionar todas imágenes",
+	"LANG_Add_Images"		=>	"Añadir Imágenes",
+	"LANG_Files"			=>	"Archivos",
 	
 	"LANG_PayPal"			=>	"¿Te gusta usar mi plugin? Cómprame un ☕",
 
