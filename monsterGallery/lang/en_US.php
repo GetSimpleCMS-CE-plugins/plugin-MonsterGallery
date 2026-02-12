@@ -6,7 +6,7 @@ $i18n = array(
 	"LANG_Description"		=>	"The Gallery plugin you will love to use!",
 	"LANG_Settings"			=>	"MonsterGallery  👹",
 
-	"LANG_MG_List"			=>	"MonsterGallery List",
+	"LANG_MG_List"			=>	"Galleries List",
 	"LANG_Add_New"			=>	"Add New Gallery",
 	"LANG_Clear_Cache"		=>	"Clear Thumbnail Cache",
 	"LANG_Migrate"			=>	"Migrate Galleries",
@@ -48,15 +48,17 @@ $i18n = array(
 
 	"LANG_PayPal"			=>	"Do you like using my plugin? Buy me a ☕",
 
-	"LANG_Delete_Question" => 'Are you sure you want to delete this item?',
+	"LANG_Delete_Question"	=>	"Are you sure you want to delete this item?",
 
 	//new for 3.0
 
-	"LANG_Mobile_Width" => 'Mobile Width',
-	"LANG_Mobile_Height" => 'Mobile Height',
-	"LANG_Mobile_Gap" => 'Mobile Gap',
-	"LANG_Own_Class" => 'Own Class',
-	"LANG_Thumbnail_Fit" => 'Thumbnail Fit',
-	"LANG_Back_To_List" => 'Back To List'
+	"LANG_Mobile_Width"		=>	"Mobile Width",
+	"LANG_Mobile_Height"	=>	"Mobile Height",
+	"LANG_Mobile_Gap"		=>	"Mobile Gap",
+	"LANG_Own_Class"		=>	"Own Class",
+	"LANG_Thumbnail_Fit"	=>	"Thumbnail Fit",
+	"LANG_Back_To_List"		=>	"Back To List",
+	
+	"LANG_Gallery_Config" 	=>	"Configuration",
 
 );

@@ -16,6 +16,7 @@ global $SITEURL;; ?>
 		position: relative;
 		padding-top: 30px;
 		background: #ddd;
+		border-radius:3px;
 	}
 
 	.monsterspan img {
@@ -55,7 +56,7 @@ global $SITEURL;; ?>
 		border-radius:3px;
 		background: #000; 
 		padding:10px; 
-		margin:15px 0; 
+		margin:5px 0; 
 		box-sizing: border-box; 
 		color:#fff; 
 		display:grid; 
@@ -102,6 +103,53 @@ global $SITEURL;; ?>
 	.mg-btn.mg-save{
 		background-color:#4CAF50!important;
 	}
+	
+	.accordion-header {
+		background: #333;
+		color: #fff;
+		padding: 12px 15px;
+		cursor: pointer;
+		border: none;
+		width: 100%;
+		text-align: left;
+		font-size: 1rem;
+		font-weight: 600;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin: 15px 0 0 0;
+		border-radius: 3px;
+		transition: background 0.3s;
+	}
+	
+	.accordion-header:hover {
+		background: #444;
+	}
+	
+	.accordion-header.active {
+		background: #000;
+		border-radius: 3px 3px 0 0;
+	}
+	
+	.accordion-icon {
+		transition: transform 0.3s;
+		font-size: 1.2rem;
+	}
+	
+	.accordion-header.active .accordion-icon {
+		transform: rotate(180deg);
+	}
+	
+	.accordion-content {
+		max-height: 0;
+		overflow: hidden;
+		transition: max-height 0.3s ease-out;
+	}
+	
+	.accordion-content.active {
+		max-height: 1000px;
+		transition: max-height 0.5s ease-in;
+	}
 </style>
 
 <div style="display:flex;width:100%;justify-content:space-between;align-items:center;margin-bottom:10px;">
@@ -118,7 +166,15 @@ global $SITEURL;; ?>
 
 	<input type="hidden" name="check" style="width:100%; padding:10px; box-sizing: border-box;" placeholder="<?php echo i18n_r('monsterGallery/LANG_Gallery_Title'); ?>" <?php if (isset($_GET['edit'])) : ?> value="<?php echo str_replace('--', ' ', $_GET['edit']); ?>" <?php endif; ?>>
 
-	<div class="optionMonster" xstyle="width:100%;background: #000; padding:10px; margin-top:10px; box-sizing: border-box; color:#fff; display:grid; grid-template-columns:1fr 1fr 1fr 1fr;gap:10px; box-sizing: border-box;">
+	<?php if (isset($_GET['edit'])) : ?>
+		<button type="button" class="accordion-header" id="configAccordion">
+			<span><?php echo i18n_r('monsterGallery/LANG_Gallery_Config'); ?></span>
+			<span class="accordion-icon">▼</span>
+		</button>
+		<div class="accordion-content" id="configContent">
+	<?php endif; ?>
+
+	<div class="optionMonster">
 
 		<?php
 		if (isset($_GET['edit'])) {
@@ -207,7 +263,11 @@ global $SITEURL;; ?>
 
 	</div>
 
-	<div style="display:flex;gap:5px;margin-left:5px;">
+	<?php if (isset($_GET['edit'])) : ?>
+		</div>
+	<?php endif; ?>
+
+	<div style="display:flex;gap:5px; margin:15px 0 0 5px;">
 		<button class="addMG mg-btn mg-edit"><?php echo i18n_r('monsterGallery/LANG_Add_Image'); ?></button>
 		<button class="reorderMG mg-btn mg-migrate" onClick="event.preventDefault();reverseOrder();"><svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 3V21M7 3L11 7M7 3L3 7M14 3H15M14 9H17M14 15H19M14 21H21" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
 	</div>
@@ -244,7 +304,7 @@ global $SITEURL;; ?>
 		};; ?>
 	</div>
 
-	<input type="submit" name="saveMG" class="mg-btn mg-save" value="<?php echo i18n_r('BTN_SAVESETTINGS'); ?>" style="background: #000; color:#fff; padding:0.5rem 1rem; border:none; cursor:pointer;">
+	<input type="submit" name="saveMG" class="mg-btn mg-save" value="<?php echo i18n_r('BTN_SAVECHANGES'); ?>" style="background: #000; color:#fff; padding:0.5rem 1rem; border:none; cursor:pointer;">
 </form>
 
 <?php
@@ -321,4 +381,17 @@ function reverseOrder() {
     spans.reverse();
     spans.forEach(span => container.appendChild(span));
 }
+
+// Accordion functionality
+document.addEventListener('DOMContentLoaded', function() {
+	const accordionHeader = document.getElementById('configAccordion');
+	const accordionContent = document.getElementById('configContent');
+	
+	if (accordionHeader && accordionContent) {
+		accordionHeader.addEventListener('click', function() {
+			this.classList.toggle('active');
+			accordionContent.classList.toggle('active');
+		});
+	}
+});
 </script>

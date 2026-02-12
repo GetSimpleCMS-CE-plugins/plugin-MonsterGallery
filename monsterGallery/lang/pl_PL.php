@@ -6,7 +6,7 @@ $i18n = array (
 	"LANG_Description"		=>	"Wtyczka Galeria, którą pokochasz!",
 	"LANG_Settings"			=>	"MonsterGallery  👹",
 	
-	"LANG_MG_List"			=>	"MonsterGallery Lista",
+	"LANG_MG_List"			=>	"Lista Galerii",
 	"LANG_Add_New"			=>	"Dodaj nową galerię",
 	"LANG_Clear_Cache"		=>	"Wyczyść zapisane miniatury",
 	"LANG_Migrate"			=>	"Migruj adres Galerii",
@@ -37,7 +37,7 @@ $i18n = array (
 	"LANG_Thumb_Display_Width"	=>	"Wyś. Szerokość Miniatury",
 	"LANG_Thumb_Height"		=>	"Wyś. Wysokość Miniatury",
 	"LANG_Thumb_Margin"		=>	"Margines miniatury",
-	"LANG_Image_Title"	=>	"Nazwa zdjęcia",
+	"LANG_Image_Title"		=>	"Nazwa zdjęcia",
 	"LANG_Image_Description" =>	"Podpis zdjęcia",
 	"LANG_Add_Image"		=>	"Dodaj zdjęcie",
 
@@ -48,15 +48,17 @@ $i18n = array (
 
 	"LANG_PayPal"			=>	"Lubisz moje wtyczki? Kup mi ☕",
 	
-	"LANG_Delete_Question" => 'Czy jesteś pewien, że chcesz usunąć ten element?',
+	"LANG_Delete_Question"	=>	"Czy jesteś pewien, że chcesz usunąć ten element?",
 	
 	//new for 3.0
 
-	"LANG_Mobile_Width" => 'Szerokość na urz. Mobilnych',
-	"LANG_Mobile_Height" => 'Wysokość na urz. Mobilnych',
-	"LANG_Mobile_Gap" => 'Margines na urz. Mobilnych',
-	"LANG_Own_Class" => 'Własne klasy',
-	"LANG_Thumbnail_Fit" => 'Dopasowanie miniatury',
-	"LANG_Back_To_List" =>'Powrót do listy'
+	"LANG_Mobile_Width"		=>	"Szerokość na urz. Mobilnych",
+	"LANG_Mobile_Height"	=>	"Wysokość na urz. Mobilnych",
+	"LANG_Mobile_Gap"		=>	"Margines na urz. Mobilnych",
+	"LANG_Own_Class"		=>	"Własne klasy",
+	"LANG_Thumbnail_Fit"	=>	"Dopasowanie miniatury",
+	"LANG_Back_To_List"		=>	"Powrót do listy",
+	
+	"LANG_Gallery_Config"	=>	"Konfiguracja",
 	
 );

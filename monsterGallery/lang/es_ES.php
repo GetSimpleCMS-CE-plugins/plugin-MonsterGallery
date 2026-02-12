@@ -6,7 +6,7 @@ $i18n = array (
 	"LANG_Description"		=>	"¡El plugin de Galería que te encantará usar!",
 	"LANG_Settings"			=>	"MonsterGallery 👹",
 	
-	"LANG_MG_List"			=>	"MonsterGallery Listado",
+	"LANG_MG_List"			=>	"Lista de Galerías",
 	"LANG_Add_New"			=>	"Agregar nueva galería",
 	"LANG_Clear_Cache"		=>	"Borrar Caché de Miniaturas",
 	"LANG_Migrate"			=>	"Migrar Galerías",
@@ -48,15 +48,17 @@ $i18n = array (
 	
 	"LANG_PayPal"			=>	"¿Te gusta usar mi plugin? Cómprame un ☕",
 
-	"LANG_Delete_Question" => '¿Está seguro de que desea eliminar este elemento?',
+	"LANG_Delete_Question"	=>	"¿Está seguro de que desea eliminar este elemento?",
 
 		//new for 3.0
 
-		"LANG_Mobile_Width" => 'Ancho para Móvil',
-		"LANG_Mobile_Height" => 'Altura para Móvil',
-	   "LANG_Mobile_Gap" => 'Brecha para Móvil',
-		"LANG_Own_Class" => 'Clase personalizada',
-		"LANG_Thumbnail_Fit" => 'Ajuste de Miniatura',
-		"LANG_Back_To_List" =>'Volver al Listado'
+	"LANG_Mobile_Width" 	=>	"Ancho para Móvil",
+	"LANG_Mobile_Height"	=>	"Altura para Móvil",
+	"LANG_Mobile_Gap"		=>	"Brecha para Móvil",
+	"LANG_Own_Class"		=>	"Clase personalizada",
+	"LANG_Thumbnail_Fit"	=>	"Ajuste de Miniatura",
+	"LANG_Back_To_List"		=>	"Volver al Listado",
+	
+	"LANG_Gallery_Config"	=>	"Configuración",
 	
 );
