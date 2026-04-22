@@ -65,6 +65,10 @@ $i18n = array (
 	"LANG_Contain" 			=>	"Contain",
 	
 	//new for 4.0
+	
+	"LANG_Defaults"			=>	"Defaults",
+	"LANG_default_values"	=>	"Fill empty fields with default values",
+	
 	"LANG_Layout_Mode"        => "Modo de diseño",
 	"LANG_Grid"               => "Cuadrícula (todas las miniaturas)",
 	"LANG_Hero"               => "Hero (presentación integrada)",

@@ -201,18 +201,39 @@ global $SITEURL;; ?>
 
 		<div style="grid-column: 1/6; border: solid 1px #333; padding: 10px; background: #222;">
 			<p style="color:#fff; font-size:1rem; margin:0; padding:0; margin-bottom: 10px;"><?php echo i18n_r('monsterGallery/LANG_Gallery_Type'); ?></p>
-			<select name="modules" class="modules" style="width:100%; margin-bottom: 10px; box-sizing: border-box;padding: 6px; font-size:13px;border-radius:0;border:none;">
-				<option value="glightbox"><?php echo i18n_r('monsterGallery/LANG_GlightBox'); ?></option>
-				<option value="spotlight"><?php echo i18n_r('monsterGallery/LANG_SpotLight'); ?></option>
-				<option value="simplelightbox"><?php echo i18n_r('monsterGallery/LANG_SimpleLightBox'); ?></option>
-				<option value="baguettebox"><?php echo i18n_r('monsterGallery/LANG_BaguetteBox'); ?></option>
-				<option value="PhotoSwipe"><?php echo i18n_r('monsterGallery/LANG_PhotoSwipe'); ?></option>
-			</select>
+			<div style="display:flex; gap:8px; align-items:center;">
+				<select name="modules" class="modules" style="flex:1; margin-bottom: 0; box-sizing: border-box;padding: 6px; font-size:13px;border-radius:0;border:none;">
+					<option value="glightbox"><?php echo i18n_r('monsterGallery/LANG_GlightBox'); ?></option>
+					<option value="spotlight"><?php echo i18n_r('monsterGallery/LANG_SpotLight'); ?></option>
+					<option value="simplelightbox"><?php echo i18n_r('monsterGallery/LANG_SimpleLightBox'); ?></option>
+					<option value="baguettebox"><?php echo i18n_r('monsterGallery/LANG_BaguetteBox'); ?></option>
+					<option value="PhotoSwipe"><?php echo i18n_r('monsterGallery/LANG_PhotoSwipe'); ?></option>
+				</select>
+				<button type="button" onclick="fillDefaults()" style="white-space:nowrap; padding:6px 10px; font-size:11px; background:#444; color:#fff; border:none; border-radius:3px; cursor:pointer;" title="<?php echo i18n_r('monsterGallery/LANG_default_values'); ?>">&#8635; <?php echo i18n_r('monsterGallery/LANG_Defaults'); ?></button>
+			</div>
 
 			<script>
 				if ('<?php echo $mods; ?>' !== '') {
 					document.querySelector('.modules').value = '<?php echo $mods; ?>';
 				};
+
+				function fillDefaults() {
+					var defaults = {
+						'quality':     '800',
+						'width':       '320px',
+						'height':      '240px',
+						'gap':         '10px',
+						'mobilewidth': '100%',
+						'mobileheight':'250px',
+						'mobilegap':   '10px'
+					};
+					Object.keys(defaults).forEach(function(name) {
+						var el = document.querySelector('[name="' + name + '"]');
+						if (el && el.value.trim() === '') {
+							el.value = defaults[name];
+						}
+					});
+				}
 			</script>
 		</div>
 
@@ -344,7 +365,7 @@ global $SITEURL;; ?>
 							<input type="text" name="name[]" value="' . @$fileditJson->names[$key] . '" placeholder="' . i18n_r('monsterGallery/LANG_Image_Title') . '">
 							<textarea name="description[]" placeholder="' . i18n_r('monsterGallery/LANG_Image_Description') . '" style="width:100%; height:60px; box-sizing:border-box; padding:5px;">' . (trim(@$fileditJson->descriptions[$key] ?? '')) . '</textarea>
 							<input type="text" name="image[]" value = "' . @$value . '" >
-							<button type="button" class="setCover mg-btn" style="background:#555; font-size:11px; padding:3px 8px; margin-top:4px; ' . ($isCover === 'true' ? 'background:#FF9900!important;' : '') . '; display:' . (@$layout == 'hero' ? 'inline-block' : 'none') . ';" onclick="setCoverImage(this, \'' . addslashes($value) . '\')">
+							<button type="button" class="setCover mg-btn" style="background:#555; font-size:11px; padding:3px 8px; margin-top:4px; ' . ($isCover === 'true' ? 'background:#FF9900!important;' : '') . '; display:' . (@$mods == 'glightbox' && @$layout == 'hero' ? 'inline-block' : 'none') . ';" onclick="setCoverImage(this, \'' . addslashes($value) . '\')">
 								' . ($isCover === 'true' ? '★ ' . i18n_r('monsterGallery/LANG_Cover_image') . ' ' : '☆ ' . i18n_r('monsterGallery/LANG_Set_cover') . ' ') . '
 							</button>
 						</span>';
@@ -440,9 +461,10 @@ function reverseOrder() {
 function toggleHeroOptions(val) {
     var el = document.getElementById('heroOptions');
     if (el) el.style.display = (val === 'hero') ? 'block' : 'none';
-    // Show/hide the "Set as cover" button on every image span
+    // Show setCover buttons only when BOTH glightbox and hero are active
+    var isGlightbox = document.querySelector('.modules')?.value === 'glightbox';
     document.querySelectorAll('.setCover').forEach(function(btn) {
-        btn.style.display = (val === 'hero') ? 'inline-block' : 'none';
+        btn.style.display = (isGlightbox && val === 'hero') ? 'inline-block' : 'none';
     });
 }
 
@@ -457,6 +479,11 @@ function toggleGlightboxOptions(val) {
         var heroEl = document.getElementById('heroOptions');
         if (heroEl) heroEl.style.display = 'none';
     }
+    // Show setCover buttons only when BOTH glightbox and hero are active
+    var isHero = document.getElementById('layoutSelect')?.value === 'hero';
+    document.querySelectorAll('.setCover').forEach(function(btn) {
+        btn.style.display = (val === 'glightbox' && isHero) ? 'inline-block' : 'none';
+    });
 }
 
 // Wire the modules select on load

@@ -66,6 +66,9 @@ $i18n = array(
 	
 	//new for 4.0
 	
+	"LANG_Defaults"			=>	"Defaults",
+	"LANG_default_values"	=>	"Fill empty fields with default values",
+	
 	"LANG_Layout_Mode"		=>	"Layout Mode",
 	"LANG_Grid" 			=>	"Grid (all thumbnails)",
 	"LANG_Hero" 			=>	"Hero (inline slideshow)",
