@@ -60,5 +60,31 @@ $i18n = array(
 	"LANG_Back_To_List"		=>	"Back To List",
 	
 	"LANG_Gallery_Config" 	=>	"Configuration",
+	
+	"LANG_Cover" 			=>	"Cover",
+	"LANG_Contain" 			=>	"Contain",
+	
+	//new for 4.0
+	
+	"LANG_Layout_Mode"		=>	"Layout Mode",
+	"LANG_Grid" 			=>	"Grid (all thumbnails)",
+	"LANG_Hero" 			=>	"Hero (inline slideshow)",
+	
+	"LANG_Slideshow_Mode" 	=>	"Slideshow Mode",
+	"LANG_Auto" 			=>	"Auto slideshow",
+	"LANG_Manual" 			=>	"Manual (prev/next only)",
+	
+	"LANG_Hero_Options" 	=>	"Hero Mode Options",
+	
+	"LANG_Transition_Style" =>	"Transition Style",
+	"LANG_Slide" 			=>	"Slide",
+	"LANG_Cross_fade" 		=>	"Cross-fade",
+	
+	"LANG_Click_Behaviour" 	=>	"Click Behaviour",
+	"LANG_No_action" 		=>	"No action",
+	"LANG_Open_lightbox" 	=>	"Open lightbox",
+	
+	"LANG_Set_cover" 		=>	"Set as cover",
+	"LANG_Cover_image" 		=>	"Cover image",
 
 );

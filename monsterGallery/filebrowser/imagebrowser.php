@@ -260,14 +260,15 @@
 						console.log(linker);
 						let linkerNew = linker;
 
+						const isHero1 = window.opener.document.getElementById('layoutSelect')?.value === 'hero';
 						window.opener.document.querySelector('.imagelist').insertAdjacentHTML('afterbegin', `
 <span class="monsterspan"> 
 	<button class="closeThis" onclick="event.preventDefault();this.parentElement.remove()">X</button>
 	<img src="${linkerNew}">
 	<input type="text" name="name[]" placeholder="<?php echo i18n_r('monsterGallery/LANG_Image_Title') ;?>">
-	<textarea  name="description[]" value="description" placeholder="<?php echo i18n_r('monsterGallery/LANG_Image_Description') ;?>" style="width:100%;height:60px;box-sizing:border-box;padding:5px;">
-	</textarea>
-	<input type="text" name="image[]" value = "${linkerNew}" >
+	<textarea name="description[]" placeholder="<?php echo i18n_r('monsterGallery/LANG_Image_Description') ;?>" style="width:100%;height:60px;box-sizing:border-box;padding:5px;"></textarea>
+	<input type="text" name="image[]" value="${linkerNew}">
+	<button type="button" class="setCover mg-btn" style="background:#555; font-size:11px; padding:3px 8px; margin-top:4px; display:${isHero1 ? 'inline-block' : 'none'};" onclick="setCoverImage(this, '${linkerNew.replace(/'/g, "\\'")}')">☆ <?php echo i18n_r('monsterGallery/LANG_Set_cover') ;?></button>
 </span>
 `);
 
@@ -290,14 +291,15 @@
 							console.log(linker);
 							let linkerNew = linker;
 
+							const isHero2 = window.opener.document.getElementById('layoutSelect')?.value === 'hero';
 							window.opener.document.querySelector('.imagelist').insertAdjacentHTML('afterbegin', `
 <span class="monsterspan"> 
 	<button class="closeThis" onclick="event.preventDefault();this.parentElement.remove()">X</button>
 	<img src="${linkerNew}">
 	<input type="text" name="name[]" placeholder="<?php echo i18n_r('monsterGallery/LANG_Image_Title') ;?>">
-	<textarea  name="description[]" value="description" placeholder="<?php echo i18n_r('monsterGallery/LANG_Image_Description') ;?>" style="width:100%; height:60px; box-sizing:border-box; padding:5px;">
-	</textarea>
-	<input type="text" name="image[]" value = "${linkerNew}" >
+	<textarea name="description[]" placeholder="<?php echo i18n_r('monsterGallery/LANG_Image_Description') ;?>" style="width:100%; height:60px; box-sizing:border-box; padding:5px;"></textarea>
+	<input type="text" name="image[]" value="${linkerNew}">
+	<button type="button" class="setCover mg-btn" style="background:#555; font-size:11px; padding:3px 8px; margin-top:4px; display:${isHero2 ? 'inline-block' : 'none'};" onclick="setCoverImage(this, '${linkerNew.replace(/'/g, "\\'")}')">☆ <?php echo i18n_r('monsterGallery/LANG_Set_cover') ;?></button>
 </span>
 `);
 						});

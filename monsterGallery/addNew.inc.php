@@ -192,6 +192,11 @@ global $SITEURL;; ?>
 			$mobilewidth = @$dataJson->mobilewidth;
 			$mobileheight = @$dataJson->mobileheight;
 			$mobilegap = @$dataJson->mobilegap;
+			$slideshow = @$dataJson->slideshow ?: 'slideshow';
+			$layout = @$dataJson->layout ?: 'grid';
+			$coverimage = @$dataJson->coverimage ?: '';
+			$herotransition = @$dataJson->herotransition ?: 'slide';
+			$heroclick = @$dataJson->heroclick ?: 'none';
 		};; ?>
 
 		<div style="grid-column: 1/6; border: solid 1px #333; padding: 10px; background: #222;">
@@ -256,10 +261,50 @@ global $SITEURL;; ?>
 		<div style="grid-column:1/6;">
 			<p style="margin: 0; padding:0;"><?php echo i18n_r('monsterGallery/LANG_Thumbnail_Fit'); ?></p>
 			<select name="thumbfit" style="padding:8px;border:none;width:100%; font-size:12px;background:#fff;">
-				<option value="cover" <?php echo (@$thumbfit == 'cover' ? 'selected' : ''); ?>>Cover</option>
-				<option value="contain" <?php echo (@$thumbfit == 'contain' ? 'selected' : ''); ?>>Contain</option>
+				<option value="cover" <?php echo (@$thumbfit == 'cover' ? 'selected' : ''); ?>><?php echo i18n_r('monsterGallery/LANG_Cover'); ?></option>
+				<option value="contain" <?php echo (@$thumbfit == 'contain' ? 'selected' : ''); ?>><?php echo i18n_r('monsterGallery/LANG_Contain'); ?></option>
 			</select>
 		</div>
+
+		<div id="glightboxOptions" style="grid-column:1/6; display:contents; <?php echo (@$mods !== 'glightbox' ? 'display:none;' : ''); ?>">
+
+		<div style="grid-column:1/3;">
+			<p style="margin: 0; padding:0;"><?php echo i18n_r('monsterGallery/LANG_Layout_Mode'); ?></p>
+			<select name="layout" id="layoutSelect" style="padding:8px;border:none;width:100%; font-size:12px;background:#fff;" onchange="toggleHeroOptions(this.value)">
+				<option value="grid" <?php echo (@$layout == 'grid' ? 'selected' : ''); ?>><?php echo i18n_r('monsterGallery/LANG_Grid'); ?></option>
+				<option value="hero" <?php echo (@$layout == 'hero' ? 'selected' : ''); ?>><?php echo i18n_r('monsterGallery/LANG_Hero'); ?></option>
+			</select>
+		</div>
+
+		<div style="grid-column:3/6;">
+			<p style="margin: 0; padding:0;"><?php echo i18n_r('monsterGallery/LANG_Slideshow_Mode'); ?></p>
+			<select name="slideshow" style="padding:8px;border:none;width:100%; font-size:12px;background:#fff;">
+				<option value="slideshow" <?php echo (@$slideshow == 'slideshow' ? 'selected' : ''); ?>><?php echo i18n_r('monsterGallery/LANG_Auto'); ?></option>
+				<option value="manual" <?php echo (@$slideshow == 'manual' ? 'selected' : ''); ?>><?php echo i18n_r('monsterGallery/LANG_Manual'); ?></option>
+			</select>
+		</div>
+
+		<div id="heroOptions" style="grid-column:1/6; background:#1a1a1a; padding:10px; border-top: 1px solid #444; <?php echo (@$layout == 'hero' ? '' : 'display:none;'); ?>">
+			<p style="margin: 0 0 8px 0; color:#FF9900; font-weight:600;"><?php echo i18n_r('monsterGallery/LANG_Hero_Options'); ?></p>
+			<div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+				<div>
+					<p style="margin: 0; padding:0;"><?php echo i18n_r('monsterGallery/LANG_Transition_Style'); ?></p>
+					<select name="herotransition" style="padding:8px;border:none;width:100%; font-size:12px;background:#fff;">
+						<option value="slide" <?php echo (@$herotransition == 'slide' ? 'selected' : ''); ?>><?php echo i18n_r('monsterGallery/LANG_Slide'); ?></option>
+						<option value="fade"  <?php echo (@$herotransition == 'fade'  ? 'selected' : ''); ?>><?php echo i18n_r('monsterGallery/LANG_Cross_fade'); ?></option>
+					</select>
+				</div>
+				<div>
+					<p style="margin: 0; padding:0;"><?php echo i18n_r('monsterGallery/LANG_Click_Behaviour'); ?></p>
+					<select name="heroclick" style="padding:8px;border:none;width:100%; font-size:12px;background:#fff;">
+						<option value="none"     <?php echo (@$heroclick == 'none'     ? 'selected' : ''); ?>><?php echo i18n_r('monsterGallery/LANG_No_action'); ?></option>
+						<option value="lightbox" <?php echo (@$heroclick == 'lightbox' ? 'selected' : ''); ?>><?php echo i18n_r('monsterGallery/LANG_Open_lightbox'); ?></option>
+					</select>
+				</div>
+			</div>
+		</div>
+
+		</div><!-- /#glightboxOptions -->
 
 	</div>
 
@@ -291,19 +336,24 @@ global $SITEURL;; ?>
 				$fileditJson = json_decode($filedit);
 
 				foreach ($fileditJson->images as $key => $value) {
+					$isCover = (@$fileditJson->coverimage === $value) ? 'true' : 'false';
 					echo '
-						<span class="monsterspan"> 
+						<span class="monsterspan" data-cover="' . $isCover . '"> 
 							<button class="closeThis" onClick="event.preventDefault();this.parentElement.remove()"  >✖</button>
-							<img src="' . $value . '">
+							<img src="' . $value . '" style="outline: ' . ($isCover === 'true' ? '3px solid #FF9900' : 'none') . ';">
 							<input type="text" name="name[]" value="' . @$fileditJson->names[$key] . '" placeholder="' . i18n_r('monsterGallery/LANG_Image_Title') . '">
-							<textarea  name="description[]" value="description" placeholder="' . i18n_r('monsterGallery/LANG_Image_Description') . 'xx" style="width:100%; height:60px; box-sizing:border-box; padding:5px;">' . @$fileditJson->descriptions[$key] . '</textarea>
+							<textarea name="description[]" placeholder="' . i18n_r('monsterGallery/LANG_Image_Description') . '" style="width:100%; height:60px; box-sizing:border-box; padding:5px;">' . (trim(@$fileditJson->descriptions[$key] ?? '')) . '</textarea>
 							<input type="text" name="image[]" value = "' . @$value . '" >
+							<button type="button" class="setCover mg-btn" style="background:#555; font-size:11px; padding:3px 8px; margin-top:4px; ' . ($isCover === 'true' ? 'background:#FF9900!important;' : '') . '; display:' . (@$layout == 'hero' ? 'inline-block' : 'none') . ';" onclick="setCoverImage(this, \'' . addslashes($value) . '\')">
+								' . ($isCover === 'true' ? '★ ' . i18n_r('monsterGallery/LANG_Cover_image') . ' ' : '☆ ' . i18n_r('monsterGallery/LANG_Set_cover') . ' ') . '
+							</button>
 						</span>';
 				};
 			}
 		};; ?>
 	</div>
 
+	<input type="hidden" name="coverimage" id="coverimage" value="<?php echo htmlspecialchars(@$coverimage); ?>">
 	<input type="submit" name="saveMG" class="mg-btn mg-save" value="<?php echo i18n_r('BTN_SAVECHANGES'); ?>" style="background: #000; color:#fff; padding:0.5rem 1rem; border:none; cursor:pointer;">
 </form>
 
@@ -341,6 +391,11 @@ if (isset($_POST['saveMG'])) {
 		$myObj->modules = @$_POST['modules'];
 		$myObj->ownclass = @$_POST['ownclass'];
 		$myObj->thumbfit = @$_POST['thumbfit'];
+		$myObj->slideshow = @$_POST['slideshow'] ?: 'slideshow';
+		$myObj->layout = @$_POST['layout'] ?: 'grid';
+		$myObj->coverimage = @$_POST['coverimage'] ?: '';
+		$myObj->herotransition = @$_POST['herotransition'] ?: 'slide';
+		$myObj->heroclick = @$_POST['heroclick'] ?: 'none';
 
 		$myObj->mobilewidth = $_POST['mobilewidth'];
 		$myObj->mobileheight = $_POST['mobileheight'];
@@ -380,6 +435,61 @@ function reverseOrder() {
     const spans = Array.from(container.children);
     spans.reverse();
     spans.forEach(span => container.appendChild(span));
+}
+
+function toggleHeroOptions(val) {
+    var el = document.getElementById('heroOptions');
+    if (el) el.style.display = (val === 'hero') ? 'block' : 'none';
+    // Show/hide the "Set as cover" button on every image span
+    document.querySelectorAll('.setCover').forEach(function(btn) {
+        btn.style.display = (val === 'hero') ? 'inline-block' : 'none';
+    });
+}
+
+function toggleGlightboxOptions(val) {
+    var wrapper = document.getElementById('glightboxOptions');
+    if (!wrapper) return;
+    if (val === 'glightbox') {
+        wrapper.style.display = 'contents';
+    } else {
+        wrapper.style.display = 'none';
+        // Also collapse heroOptions when the whole section hides
+        var heroEl = document.getElementById('heroOptions');
+        if (heroEl) heroEl.style.display = 'none';
+    }
+}
+
+// Wire the modules select on load
+document.addEventListener('DOMContentLoaded', function() {
+    var modulesSelect = document.querySelector('.modules');
+    if (modulesSelect) {
+        modulesSelect.addEventListener('change', function() {
+            toggleGlightboxOptions(this.value);
+        });
+        // Run once on load to reflect the saved/current value
+        toggleGlightboxOptions(modulesSelect.value);
+    }
+});
+
+function setCoverImage(btn, imageUrl) {
+    // Update hidden field
+    document.getElementById('coverimage').value = imageUrl;
+
+    // Reset all spans visually
+    document.querySelectorAll('.monsterspan').forEach(function(span) {
+        span.querySelector('img').style.outline = 'none';
+        const b = span.querySelector('.setCover');
+        if (b) {
+            b.style.background = '#555';
+            b.textContent = '\u2606 <?php echo i18n_r('monsterGallery/LANG_Set_cover'); ?>';
+        }
+    });
+
+    // Highlight selected
+    const span = btn.closest('.monsterspan');
+    span.querySelector('img').style.outline = '3px solid #FF9900';
+    btn.style.background = '#FF9900';
+    btn.textContent = '\u2605 <?php echo i18n_r('monsterGallery/LANG_Cover_image'); ?>';
 }
 
 // Accordion functionality

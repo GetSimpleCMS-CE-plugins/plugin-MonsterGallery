@@ -61,4 +61,29 @@ $i18n = array (
 	
 	"LANG_Gallery_Config"	=>	"Configuración",
 	
+	"LANG_Cover" 			=>	"Cover",
+	"LANG_Contain" 			=>	"Contain",
+	
+	//new for 4.0
+	"LANG_Layout_Mode"        => "Modo de diseño",
+	"LANG_Grid"               => "Cuadrícula (todas las miniaturas)",
+	"LANG_Hero"               => "Hero (presentación integrada)",
+
+	"LANG_Slideshow_Mode"     => "Modo de presentación",
+	"LANG_Auto"               => "Presentación automática",
+	"LANG_Manual"             => "Manual (solo anterior/siguiente)",
+
+	"LANG_Hero_Options"       => "Opciones del modo Hero",
+
+	"LANG_Transition_Style"   => "Estilo de transición",
+	"LANG_Slide"              => "Deslizamiento",
+	"LANG_Cross_fade"         => "Fundido cruzado",
+
+	"LANG_Click_Behaviour"    => "Comportamiento al hacer clic",
+	"LANG_No_action"          => "Sin acción",
+	"LANG_Open_lightbox"      => "Abrir lightbox",
+
+	"LANG_Set_cover"          => "Establecer como portada",
+	"LANG_Cover_image"        => "Imagen de portada",
+
 );

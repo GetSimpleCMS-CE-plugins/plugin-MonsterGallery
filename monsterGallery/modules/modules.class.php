@@ -21,6 +21,11 @@ class MonsterModules
 	public $thumbfit;
 	public $descunder;
 	public $modcheck;
+	public $slideshow;
+	public $layout;
+	public $coverimage;
+	public $herotransition;
+	public $heroclick;
 
 	public function set_name($matches)
 	{
@@ -37,6 +42,11 @@ class MonsterModules
 		$this->mobilewidth = $this->dataJson->mobilewidth;
 		$this->mobileheight = $this->dataJson->mobileheight;
 		$this->mobilegap = $this->dataJson->mobilegap;
+		$this->slideshow = $this->dataJson->slideshow ?? 'slideshow';
+		$this->layout = $this->dataJson->layout ?? 'grid';
+		$this->coverimage = $this->dataJson->coverimage ?? '';
+		$this->herotransition = $this->dataJson->herotransition ?? 'slide';
+		$this->heroclick = $this->dataJson->heroclick ?? 'none';
 
 		$this->styleCSS = '
 
@@ -96,6 +106,11 @@ class MonsterModules
 		$this->mobilewidth = $this->dataJson->mobilewidth;
 		$this->mobileheight = $this->dataJson->mobileheight;
 		$this->mobilegap = $this->dataJson->mobilegap;
+		$this->slideshow = $this->dataJson->slideshow ?? 'slideshow';
+		$this->layout = $this->dataJson->layout ?? 'grid';
+		$this->coverimage = $this->dataJson->coverimage ?? '';
+		$this->herotransition = $this->dataJson->herotransition ?? 'slide';
+		$this->heroclick = $this->dataJson->heroclick ?? 'none';
 
 		$this->styleCSS = '
 
@@ -230,25 +245,110 @@ $parentDirectory = basename($directoryPath);
 
 	function glightbox()
 	{
-
 		global $modules;
 		$this->gal = $this->styleCSS;
 
+		// Unique ID for this gallery instance so JS can scope each lightbox independently
+		$galleryId = 'mg-' . md5($this->name . microtime());
 
-		$this->gal .= '<div class="monsterGallery-grid ' . $this->ownclass . '">';
+		$slideshowMode  = $this->slideshow      ?: 'slideshow';
+		$layoutMode     = $this->layout         ?: 'grid';
+		$coverImage     = $this->coverimage     ?: '';
+		$heroTransition = $this->herotransition ?: 'slide';
+		$heroClick      = $this->heroclick      ?: 'none';
 
-		foreach ($this->dataJson->images as $key => $value) {
+		global $SITEURL;
 
-			global $SITEURL;
+		if ($layoutMode === 'hero') {
 
-			$forthumb = str_replace($SITEURL . 'data/uploads/', GSDATAUPLOADPATH, $value);
-			$this->gal .=  '<a href="' . $value . '"  class="glightbox" style="width:' . $this->width . ';height:' . $this->height . ';"    data-title="' . $this->dataJson->names[$key] . '"
- data-description="' . $this->dataJson->descriptions[$key] . '" data-zoomable="true"><img src="' . $this->MGthumb(
-				$forthumb,
-				$this->quality
-			) . '" style="width:100%;height:100%;object-fit:' . $this->thumbfit . ';"></a>';
+			// --- HERO MODE: inline cycling slideshow ---
+			// Build ordered image list: cover image first, then the rest
+			$images = $this->dataJson->images;
+			$names  = $this->dataJson->names;
+			$descs  = $this->dataJson->descriptions;
+
+			// Reorder so cover image is index 0
+			$coverIdx = 0;
+			if ($coverImage !== '') {
+				foreach ($images as $k => $v) {
+					if ($v === $coverImage) { $coverIdx = $k; break; }
+				}
+			}
+			$orderedImages = array();
+			$orderedNames  = array();
+			$orderedDescs  = array();
+			// Cover first
+			$orderedImages[] = $images[$coverIdx];
+			$orderedNames[]  = $names[$coverIdx];
+			$orderedDescs[]  = $descs[$coverIdx];
+			// Then the rest in original order
+			foreach ($images as $k => $v) {
+				if ($k !== $coverIdx) {
+					$orderedImages[] = $v;
+					$orderedNames[]  = $names[$k];
+					$orderedDescs[]  = $descs[$k];
+				}
+			}
+
+			// Wrapper div — same dimensions as a normal thumbnail
+			$this->gal .= '<div class="monsterGallery-grid monsterGallery-hero ' . $this->ownclass . '"'
+				. ' data-mg-gallery-id="' . $galleryId . '"'
+				. ' data-mg-layout="hero"'
+				. ' data-mg-slideshow="' . htmlspecialchars($slideshowMode) . '"'
+				. ' data-mg-slideshow-time="4000"'
+				. ' data-mg-hero-transition="' . htmlspecialchars($heroTransition) . '"'
+				. ' data-mg-hero-click="' . htmlspecialchars($heroClick) . '"'
+				. ' style="position:relative;overflow:hidden;width:' . $this->width . ';height:' . $this->height . ';cursor:' . ($heroClick === 'lightbox' ? 'pointer' : 'default') . ';">';
+
+			// Stack all images absolutely, first one on top
+			foreach ($orderedImages as $idx => $value) {
+				$forthumb = str_replace($SITEURL . 'data/uploads/', GSDATAUPLOADPATH, $value);
+				$this->gal .= '<img'
+					. ' src="' . $this->MGthumb($forthumb, $this->quality) . '"'
+					. ' data-mg-hero-src="' . $value . '"'
+					. ' alt="' . htmlspecialchars($orderedNames[$idx]) . '"'
+					. ' style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:' . $this->thumbfit . ';'
+					. 'opacity:' . ($idx === 0 ? '1' : '0') . ';'
+					. 'transition:opacity 0.6s ease;'
+					. '">';
+			}
+
+			$this->gal .= '</div>';
+
+			// If click=lightbox, also emit hidden <a> tags for GLightbox to pick up
+			if ($heroClick === 'lightbox') {
+				$this->gal .= '<div style="display:none;">';
+				foreach ($orderedImages as $idx => $value) {
+					$this->gal .= '<a href="' . $value . '" class="glightbox"'
+						. ' data-gallery="' . $galleryId . '"'
+						. ' data-title="' . htmlspecialchars($orderedNames[$idx]) . '"'
+						. ' data-description="' . htmlspecialchars($orderedDescs[$idx]) . '"'
+						. ' data-zoomable="true"></a>';
+				}
+				$this->gal .= '</div>';
+			}
+
+		} else {
+
+			// --- GRID MODE: normal thumbnail grid ---
+			$this->gal .= '<div class="monsterGallery-grid ' . $this->ownclass . '"'
+				. ' data-mg-gallery-id="' . $galleryId . '"'
+				. ' data-mg-slideshow="' . htmlspecialchars($slideshowMode) . '"'
+				. ' data-mg-layout="grid"'
+				. ' data-mg-slideshow-time="4000">';
+
+			foreach ($this->dataJson->images as $key => $value) {
+				$forthumb = str_replace($SITEURL . 'data/uploads/', GSDATAUPLOADPATH, $value);
+				$this->gal .= '<a href="' . $value . '" class="glightbox" style="width:' . $this->width . ';height:' . $this->height . ';"'
+					. ' data-gallery="' . $galleryId . '"'
+					. ' data-title="' . htmlspecialchars($this->dataJson->names[$key]) . '"'
+					. ' data-description="' . htmlspecialchars($this->dataJson->descriptions[$key]) . '"'
+					. ' data-zoomable="true">'
+					. '<img src="' . $this->MGthumb($forthumb, $this->quality) . '" style="width:100%;height:100%;object-fit:' . $this->thumbfit . ';"></a>';
+			}
+
+			$this->gal .= '</div>';
 		}
-		$this->gal .= '</div>';
 
 		$modules = 'glightbox';
 	}

@@ -10,9 +10,9 @@ i18n_merge('monsterGallery') || i18n_merge('monsterGallery', 'en_US');
 register_plugin(
 	$thisfile, //Plugin id
 	'MonsterGallery', 	//Plugin name
-	'4.3', 		//Plugin version
-	'Multicolor',  //Plugin author
-	'https://github.com/multicolor-rgb', //author website
+	'4.4', 		//Plugin version
+	'CE Team',  //Plugin author
+	'https://getsimple-ce.ovh/donate', //author website
 	i18n_r('monsterGallery/LANG_Description'), //Plugin description
 	'pages', //page type - on which admin tab to display
 	'monsterGallery'  //main function (administration)
